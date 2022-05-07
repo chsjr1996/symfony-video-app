@@ -8,13 +8,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class CategoryFixtures extends Fixture
 {
-    private const ELETRONICS_CATEGORY_ID = 1;
+    private const ELECTRONICS_CATEGORY_ID = 1;
     private const TOYS_CATEGORY_ID = 1;
     private const BOOKS_CATEGORY_ID = 1;
     private const MOVIES_CATEGORY_ID = 1;
 
     private array $mainCategories = [
-        ['Electronics', self::ELETRONICS_CATEGORY_ID],
+        ['Electronics', self::ELECTRONICS_CATEGORY_ID],
         ['Toys', self::TOYS_CATEGORY_ID],
         ['Books', self::BOOKS_CATEGORY_ID],
         ['Movies', self::MOVIES_CATEGORY_ID],
@@ -31,7 +31,7 @@ class CategoryFixtures extends Fixture
         $this->loadMainCategories($manager);
 
         $subcategoriesToLoad = [
-            [$this->electronicsSubcategories, self::ELETRONICS_CATEGORY_ID],
+            [$this->electronicsSubcategories, self::ELECTRONICS_CATEGORY_ID],
         ];
 
         foreach ($subcategoriesToLoad as [$subcategory, $parentId]) {

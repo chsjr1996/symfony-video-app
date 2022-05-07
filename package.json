@@ -1,0 +1,27 @@
+{
+  "name": "symfony_video_app",
+  "version": "1.0.0",
+  "description": "Based on Udemy course [Symfony Web Development Complete Guide: Beginner To Advanced](https://www.udemy.com/course/symfony-4-web-development-from-beginner-to-advanced)",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "encore:production": "encore production",
+    "encore:watch": "encore dev --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chsjr1996/symfony-video-app.git"
+  },
+  "author": "Carlos H.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chsjr1996/symfony-video-app/issues"
+  },
+  "homepage": "https://github.com/chsjr1996/symfony-video-app#readme",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^2.1.0"
+  }
+}

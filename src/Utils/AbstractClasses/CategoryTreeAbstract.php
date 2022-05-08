@@ -26,7 +26,7 @@ abstract class CategoryTreeAbstract
         $this->categoriesTree = $this->getCategories();
     }
 
-    abstract public function getCategoryList(array $categories);
+    abstract public function getCategoryList(array $categories): string;
 
     public function buildTree(int $parentId = null): array
     {

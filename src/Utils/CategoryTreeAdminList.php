@@ -6,7 +6,7 @@ use App\Utils\AbstractClasses\CategoryTreeAbstract;
 
 class CategoryTreeAdminList extends CategoryTreeAbstract
 {
-    public function getCategoryList(array $categories)
+    public function getCategoryList(array $categories): string
     {
         $this->categoryList .= '<ul class="fa-ul text-left">';
 

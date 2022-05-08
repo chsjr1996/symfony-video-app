@@ -6,14 +6,17 @@ use App\Twig\AppExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @todo Use DTO instead of array association
+ */
 abstract class CategoryTreeAbstract
 {
     protected static $dbConnection;
 
     public function __construct(
+        private AppExtension $twigExtesions,
         protected EntityManagerInterface $entityManager,
         protected UrlGeneratorInterface $urlGenerator,
-        protected AppExtension $twigExtesions,
         public array $categoriesTree = [],
         public string $categoryList = '',
         public string $mainParentId = '',
@@ -40,6 +43,11 @@ abstract class CategoryTreeAbstract
         }
 
         return $subcategories;
+    }
+
+    protected function slugify(string $text): string
+    {
+        return $this->twigExtesions->slugify($text);
     }
 
     private function getCategories(): array

@@ -27,7 +27,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
 
         foreach ($categories as $category) {
             $id = $category['id'];
-            $name = $this->twigExtesions->slugify($category['name']);
+            $name = $this->slugify($category['name']);
 
             $url = $this->urlGenerator->generate('video_list', [
                 'categoryname' => $name,

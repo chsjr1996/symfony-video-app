@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,7 @@ class FrontController extends AbstractController
         return $this->render('front/search_results.html.twig');
     }
 
-    #[Route('/video-list', name: 'video_list')]
+    #[Route('/video-list/category/{categoryname},{id}', name: 'video_list')]
     public function videoList(): Response
     {
         return $this->render('front/videolist.html.twig');
@@ -54,5 +55,15 @@ class FrontController extends AbstractController
     public function payment(): Response
     {
         return $this->render('front/payment.html.twig');
+    }
+
+    public function mainCategories(CategoryRepository $categoryRepository): Response
+    {
+        $categories = $categoryRepository->findBy(
+            ['parent' => null],
+            ['name' => 'ASC']
+        );
+
+        return $this->render('front/partials/_main_categories.html.twig', compact('categories'));
     }
 }

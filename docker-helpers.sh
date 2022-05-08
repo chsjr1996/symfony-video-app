@@ -32,7 +32,7 @@ case $1 in
         clear_database
         ;;
     --console)
-        docker-compose exec php ./bin/console
+        docker-compose exec php ./bin/console $2
         ;;
     *)
         echo "Options are: '--rebuild-db', '--console'"

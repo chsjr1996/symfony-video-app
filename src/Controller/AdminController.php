@@ -59,7 +59,7 @@ class AdminController extends AbstractController
         return $this->render('admin/users.html.twig');
     }
 
-    public function getAllCategories(CategoryTreeAdminOptionList $categories)
+    public function getAllCategories(CategoryTreeAdminOptionList $categories): Response
     {
         $categories->getCategoryList($categories->buildTree());
         return $this->render('admin/partials/_all_categories.html.twig', [

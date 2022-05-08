@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Repository\CategoryRepository;
+use App\Utils\CategoryTreeAdmin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +19,25 @@ class AdminController extends AbstractController
     }
 
     #[Route('/categories', name: 'categories')]
-    public function categories(): Response
+    public function categories(CategoryTreeAdmin $categories): Response
     {
-        return $this->render('admin/categories.html.twig');
+        $categories->getCategoryList($categories->buildTree());
+        return $this->render('admin/categories.html.twig', [
+            'categories' => $categories->categoryList,
+        ]);
     }
 
     #[Route('/edit-category', name: 'edit_category')]
     public function editCategory(): Response
     {
         return $this->render('admin/edit_category.html.twig');
+    }
+
+    #[Route('/delete-category/{id}', name: 'delete_category')]
+    public function deleteCategory(Category $category, CategoryRepository $categoryRepository): Response
+    {
+        $categoryRepository->remove($category, true);
+        return $this->redirectToRoute('categories');
     }
 
     #[Route('/videos', name: 'videos')]

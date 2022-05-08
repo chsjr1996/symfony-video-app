@@ -12,13 +12,13 @@ class CategoryTreeAdminList extends CategoryTreeAbstract
 
         foreach ($categories as $category) {
             $id = $category['id'];
-            $name = $this->slugify($category['name']);
+            $name = $category['name'];
             $urlEdit = $this->urlGenerator->generate('edit_category', ['id' => $id]);
             $urlDelete = $this->urlGenerator->generate('delete_category', ['id' => $id]);
 
             $this->categoryListHtml.= '<li><i class="fa-li fa fa-arrow-right"></i>';
             $this->categoryListHtml.= " {$name}";
-            $this->categoryListHtml.= "<a href=\"{$urlEdit}\">Edit</a>";
+            $this->categoryListHtml.= " <a href=\"{$urlEdit}\">Edit</a>";
             $this->categoryListHtml.= " <a onclick=\"return confirm('Are you sure?');\" href=\"{$urlDelete}\">Delete</a>";
 
             if (!empty($category['children'])) {

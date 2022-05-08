@@ -23,7 +23,7 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
     // TODO: 6.136... Refactor using other way
     public function getCategoryList(array $categories): string
     {
-        $this->categoryList .= "<ul>";
+        $this->categoryListHtml.= "<ul>";
 
         foreach ($categories as $category) {
             $id = $category['id'];
@@ -34,17 +34,17 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
                 'id' => $id,
             ]);
 
-            $this->categoryList .= "<li><a href=\"{$url}\">{$name}</a>";
+            $this->categoryListHtml.= "<li><a href=\"{$url}\">{$name}</a>";
 
             if (!empty($category['children'])) {
                 $this->getCategoryList($category['children']);
             }
 
-            $this->categoryList .= "</li>";
+            $this->categoryListHtml.= "</li>";
         }
 
-        $this->categoryList .= "</ul>";
-        return $this->categoryList;
+        $this->categoryListHtml.= "</ul>";
+        return $this->categoryListHtml;
     }
 
     public function getMainParent(int $id): array

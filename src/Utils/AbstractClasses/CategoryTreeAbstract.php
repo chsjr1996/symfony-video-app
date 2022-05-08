@@ -18,7 +18,8 @@ abstract class CategoryTreeAbstract
         protected EntityManagerInterface $entityManager,
         protected UrlGeneratorInterface $urlGenerator,
         public array $categoriesTree = [],
-        public string $categoryList = '',
+        public string $categoryListHtml = '',
+        public array $categoryListArray = [],
         public string $mainParentId = '',
         public string $mainParentName = '',
         public string $currentCategoryName = ''
@@ -26,7 +27,7 @@ abstract class CategoryTreeAbstract
         $this->categoriesTree = $this->getCategories();
     }
 
-    abstract public function getCategoryList(array $categories): string;
+    abstract public function getCategoryList(array $categories): string|array;
 
     public function buildTree(int $parentId = null): array
     {

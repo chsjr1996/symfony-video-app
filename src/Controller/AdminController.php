@@ -8,10 +8,14 @@ use App\Repository\CategoryRepository;
 use App\Utils\CategoryTreeAdminList;
 use App\Utils\CategoryTreeAdminOptionList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @todo Refactor: isolate Admin modules in specific files
+ */
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
@@ -33,18 +37,9 @@ class AdminController extends AbstractController
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $isInvalid = null;
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $categoryFields = $request->request->all('category');
-            $parent = $this->categoryRepository->find($categoryFields['parent']);
-
-            $category->setName($categoryFields['name']);
-            $category->setParent($parent);
-
-            $this->categoryRepository->add($category, true);
+        if ($this->saveCategory($form, $request, $category)) {
             return $this->redirectToRoute('categories');
-
         } else if ($request->isMethod('POST')) {
             $isInvalid = ' is-invalid';
         }
@@ -56,11 +51,22 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/edit-category/{id}', name: 'edit_category')]
-    public function editCategory(Category $category): Response
+    #[Route('/edit-category/{id}', name: 'edit_category', methods: ['GET', 'POST'])]
+    public function editCategory(Category $category, Request $request): Response
     {
+        $form = $this->createForm(CategoryType::class, $category);
+        $isInvalid = null;
+
+        if ($this->saveCategory($form, $request, $category)) {
+            return $this->redirectToRoute('categories');
+        } else if ($request->isMethod('POST')) {
+            $isInvalid = ' is-invalid';
+        }
+
         return $this->render('admin/edit_category.html.twig', [
             'category' => $category,
+            'form' => $form->createView(),
+            'is_invalid' => $isInvalid,
         ]);
     }
 
@@ -96,5 +102,27 @@ class AdminController extends AbstractController
             'categories' => $categories->categoryListArray,
             'editedCategory' => $editedCategory,
         ]);
+    }
+
+    /**
+     * @todo fix: edit_category exception caused by empty category name
+     */
+    private function saveCategory(FormInterface $form, Request $request, Category $category): bool
+    {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryFields = $request->request->all('category');
+            $parent = $this->categoryRepository->find($categoryFields['parent']);
+
+            $category->setName($categoryFields['name']);
+            $category->setParent($parent);
+
+            $this->categoryRepository->add($category, true);
+
+            return true;
+        }
+
+        return false;
     }
 }

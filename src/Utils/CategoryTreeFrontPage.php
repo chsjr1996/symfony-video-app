@@ -27,10 +27,10 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
 
         foreach ($categories as $category) {
             $id = $category['id'];
-            $name = $this->slugify($category['name']);
+            $name = $category['name'];
 
             $url = $this->urlGenerator->generate('video_list', [
-                'categoryname' => $name,
+                'categoryname' => $this->slugify($name),
                 'id' => $id,
             ]);
 

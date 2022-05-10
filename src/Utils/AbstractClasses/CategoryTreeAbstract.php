@@ -14,7 +14,7 @@ abstract class CategoryTreeAbstract
     protected static $dbConnection;
 
     public function __construct(
-        private AppExtension $twigExtesions,
+        protected AppExtension $twigExtensions,
         protected EntityManagerInterface $entityManager,
         protected UrlGeneratorInterface $urlGenerator,
         public array $categoriesTree = [],
@@ -48,7 +48,7 @@ abstract class CategoryTreeAbstract
 
     protected function slugify(string $text): string
     {
-        return $this->twigExtesions->slugify($text);
+        return $this->twigExtensions->slugify($text);
     }
 
     private function getCategories(): array

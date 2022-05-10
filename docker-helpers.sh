@@ -34,8 +34,14 @@ case $1 in
     --console)
         docker-compose exec php ./bin/console $2
         ;;
+    --tests)
+        docker-compose exec php ./bin/phpunit $2
+        ;;
+    --exec)
+        docker-compose exec php $2
+        ;;
     *)
-        echo "Options are: '--rebuild-db', '--console'"
+        echo "Options are: '--rebuild-db', '--console', '--tests', '--exec'"
         ;;
 esac
 

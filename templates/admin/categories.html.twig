@@ -30,7 +30,8 @@
             {{render(controller('App\\Controller\\AdminController::getAllCategories'))}} 
           </select>
           <div class="invalid-feedback">
-              {{ form_errors(form.name) }} </div>
+              {{ form_errors(form.name) }}
+          </div>
           <button class="btn btn-primary mt-3" type="submit">Add</button>
       </div>
   {{ form_end(form) }}

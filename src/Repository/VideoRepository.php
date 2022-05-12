@@ -49,11 +49,37 @@ class VideoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllPaginated(string $page): PaginationInterface
+    public function findByChildIds(array $categoryIds, int $page, ?string $sortBy): PaginationInterface
     {
+        $sortMethod = $sortBy != 'rating' ? $sortBy : 'ASC';
+
         $query = $this->createQueryBuilder('v')
+            ->andWhere('v.category IN (:categoryIds)')
+            ->setParameter('categoryIds', $categoryIds)
+            ->orderBy('v.title', $sortMethod)
             ->getQuery();
 
         return $this->paginator->paginate($query, $page, 5);
+    }
+
+    public function findByTitle(string $searchQuery, int $page, ?string $sortBy): PaginationInterface
+    {
+        $sortMethod = $sortBy != 'rating' ? $sortBy : 'ASC';
+
+        $queryBuilder = $this->createQueryBuilder('v');
+        $searchTerms = $this->prepareQuery($searchQuery);
+
+        foreach ($searchTerms as $key => $term) {
+            $queryBuilder->orWhere('LOWER(v.title) LIKE :t_' . $key)
+                ->setParameter('t_' . $key, '%' . strtolower(trim($term)) . '%');
+        }
+
+        $query = $queryBuilder->orderBy('v.title', $sortMethod);
+        return $this->paginator->paginate($query, $page, 5);
+    }
+
+    private function prepareQuery(string $searchQuery): array
+    {
+        return explode(' ', $searchQuery);
     }
 }

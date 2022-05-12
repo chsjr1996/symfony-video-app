@@ -61,4 +61,18 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
             'name' => $this->categoriesTree[$key]['name'],
         ];
     }
+
+    public function getChildIds(int $parent): array
+    {
+        static $categoryIds = [];
+
+        foreach ($this->categoriesTree as $category) {
+            if ($category['parent_id'] == $parent) {
+                $categoryIds[] = $category['id'];
+                $this->getChildIds($category['id']);
+            }
+        }
+
+        return $categoryIds;
+    }
 }

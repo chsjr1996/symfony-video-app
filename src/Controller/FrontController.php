@@ -6,9 +6,13 @@ use App\Repository\CategoryRepository;
 use App\Repository\VideoRepository;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @todo Refactor: isolate Front modules in specific files
+ */
 class FrontController extends AbstractController
 {
     #[Route('/', name: 'main_page')]
@@ -17,17 +21,42 @@ class FrontController extends AbstractController
         return $this->render('front/index.html.twig');
     }
 
-    #[Route('/search-results', name: 'search_results', methods: ['POST'])]
-    public function searchResults(): Response
+    #[Route('/search-results/{page}', name: 'search_results', methods: ['GET'], defaults: ['page' => "1"])]
+    public function searchResults(Request $request, $page, VideoRepository $videoRepository): Response
     {
-        return $this->render('front/search_results.html.twig');
+        $videos = null;
+
+        if ($query = $request->get('query')) {
+            $videos = $videoRepository->findByTitle($query, $page, $request->get('sortby'));
+
+            if (!$videos->getItems()) {
+                $videos = null;
+            }
+        }
+
+        return $this->render('front/search_results.html.twig', [
+            'videos' => $videos,
+            'query' => $query,
+        ]);
     }
 
     #[Route('/video-list/category/{categoryname},{id}/{page}', name: 'video_list', defaults: ['page' => '1'])]
-    public function videoList($id, $page, VideoRepository $videoRepository, CategoryTreeFrontPage $categories): Response
-    {
+    public function videoList(
+        $id,
+        $page,
+        Request $request,
+        VideoRepository $videoRepository,
+        CategoryTreeFrontPage $categories
+    ): Response {
         $categories->getCategoryListAndParent($id);
-        $videos = $videoRepository->findAllPaginated($page);
+        $categoryIds = $categories->getChildIds($id);
+        array_push($categoryIds, (int) $id);
+
+        $videos = $videoRepository->findByChildIds(
+            $categoryIds,
+            (int) $page,
+            $request->get('sortby')
+        );
 
         return $this->render('front/videolist.html.twig', [
             'subcategories' => $categories,

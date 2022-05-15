@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -23,6 +24,9 @@ class VideoFixtures extends Fixture
             $manager->persist($video);
         }
         $manager->flush();
+
+        $this->loadLikes($manager);
+        $this->loadDislikes($manager);
     }
 
     private function videoData(): array
@@ -50,5 +54,56 @@ class VideoFixtures extends Fixture
             ['Toys  5', 289729765, 2],
             ['Toys  6', 289729765, 2]
         ];
+    }
+
+    private function likesData(): array
+    {
+        return [
+            [12, 1],
+            [12, 2],
+            [12, 3],
+            [11, 1],
+            [11, 2],
+            [11, 3],
+            [1, 1],
+            [1, 2],
+        ];
+    }
+
+    private function dislikesData(): array
+    {
+        return [
+            [10, 1],
+            [10, 2],
+            [10, 3],
+        ];
+    }
+
+    private function loadLikes(ObjectManager $manager)
+    {
+        foreach ($this->likesData() as [$videoId, $userId]) {
+            /** @var Video */
+            $video = $manager->getRepository(Video::class)->find($videoId);
+            /** @var User */
+            $user = $manager->getRepository(User::class)->find($userId);
+
+            $video->addUsersThatLike($user);
+            $manager->persist($video);
+        }
+        $manager->flush();
+    }
+
+    private function loadDislikes(ObjectManager $manager)
+    {
+        foreach ($this->dislikesData() as [$videoId, $userId]) {
+            /** @var Video */
+            $video = $manager->getRepository(Video::class)->find($videoId);
+            /** @var User */
+            $user = $manager->getRepository(User::class)->find($userId);
+
+            $video->addUsersThatDontLike($user);
+            $manager->persist($video);
+        }
+        $manager->flush();
     }
 }

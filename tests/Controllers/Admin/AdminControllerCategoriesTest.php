@@ -3,12 +3,15 @@
 namespace App\Tests\Controllers\Admin;
 
 use App\Entity\Category;
+use App\Tests\TestsHelperTrait;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AdminControllerCategoriesTest extends WebTestCase
 {
+    use TestsHelperTrait;
+
     private KernelBrowser $client;
 
     /**
@@ -23,13 +26,14 @@ class AdminControllerCategoriesTest extends WebTestCase
         $this->client = static::createClient();
         $container = static::getContainer();
         $this->client->disableReboot();
+        $this->loginAsAdmin($container, $this->client);
 
         $this->entityManager = $container->get('doctrine.orm.entity_manager');
     }
 
     public function testTextOnPage(): void
     {
-        $crawler = $this->client->request('GET', '/admin/categories');
+        $crawler = $this->client->request('GET', '/admin/su/categories');
 
         $this->assertSame('Categories list', $crawler->filter('h2')->text());
         $this->assertStringContainsString('Electronics', $this->client->getResponse()->getContent());
@@ -37,13 +41,13 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testNumberOfItems(): void
     {
-        $crawler = $this->client->request('GET', '/admin/categories');
+        $crawler = $this->client->request('GET', '/admin/su/categories');
         $this->assertCount(21, $crawler->filter('option'));
     }
 
     public function testNewCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/categories');
+        $crawler = $this->client->request('GET', '/admin/su/categories');
 
         $form =  $crawler->selectButton('Add')->form([
             'category[parent]' => 1,
@@ -62,7 +66,7 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testEditCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/edit-category/1');
+        $crawler = $this->client->request('GET', '/admin/su/edit-category/1');
         $form = $crawler->selectButton('Save')->form([
             'category[parent]' => 0,
             'category[name]' => 'Electronics 2',
@@ -78,7 +82,7 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testDeleteCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/delete-category/1');
+        $crawler = $this->client->request('GET', '/admin/su/delete-category/1');
         $category = $this->entityManager
             ->getRepository(Category::class)
             ->find(1);

@@ -35,7 +35,7 @@
 																																			                                        <i class="fa fa-thumbs-down"></i>
 																																			                                        </button> -->
 							{% endif %}
-							<a href="{{path('video_details', {'video': video.id})}}#video_comments" class="ml-1">Comments ({{ video.comments.count }})</a>
+							<a href="{{path('video_details', {'video': video.id})}}#video_comments" id="video_{{ video.id }}_CommentsQty" class="ml-1">Comments ({{ video.comments.count }})</a>
 						</div>
 						<small class="text-muted">{{video.getDuration()}}</small>
 					</div>

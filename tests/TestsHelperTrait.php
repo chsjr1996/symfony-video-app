@@ -17,11 +17,21 @@ trait TestsHelperTrait
         $reflectionProperty->setAccessible(false);
     }
 
-    public function loginAsUser(ContainerInterface $container, KernelBrowser $client, bool $isAdmin = true): void
+    public function loginAsUser(bool $isAdmin = true): void
     {
+        $this->validateAttribute('client', KernelBrowser::class);
+        $this->validateAttribute('container', ContainerInterface::class);
+
         /** @var UserRepository */
-        $userRepository =  $container->get(UserRepository::class);
+        $userRepository =  $this->container->get(UserRepository::class);
         $userId = $isAdmin ? 1 : 3;
-        $client->loginUser($userRepository->find($userId));
+        $this->client->loginUser($userRepository->find($userId));
+    }
+
+    private function validateAttribute(string $attributeName, string $instanceOfClassName)
+    {
+        if (!$this->$attributeName || !($this->$attributeName instanceof $instanceOfClassName) ) {
+            throw new \Exception("{$attributeName} attribute is invalid!");
+        }
     }
 }

@@ -4,15 +4,12 @@ namespace App\Tests\Controllers\Admin;
 
 use App\Entity\Category;
 use App\Tests\TestsHelperTrait;
+use App\Tests\WebTestCase;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AdminControllerCategoriesTest extends WebTestCase
 {
     use TestsHelperTrait;
-
-    private KernelBrowser $client;
 
     /**
      * @var EntityManager
@@ -23,12 +20,9 @@ class AdminControllerCategoriesTest extends WebTestCase
     {
         parent::setUp();
 
-        $this->client = static::createClient();
-        $container = static::getContainer();
-        $this->client->disableReboot();
-        $this->loginAsUser($container, $this->client);
+        $this->loginAsUser();
 
-        $this->entityManager = $container->get('doctrine.orm.entity_manager');
+        $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
     }
 
     public function testTextOnPage(): void

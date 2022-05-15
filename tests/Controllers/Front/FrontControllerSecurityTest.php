@@ -2,18 +2,10 @@
 
 namespace App\Tests\Controllers\Front;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\WebTestCase;
 
 class FrontControllerSecurityTest extends WebTestCase
 {
-    private KernelBrowser $client;
-
-    protected function setUp(): void
-    {
-        $this->client = static::createClient();
-    }
-
     /**
      * @dataProvider getSecureUrls
      */

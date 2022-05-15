@@ -26,7 +26,7 @@ class AdminControllerCategoriesTest extends WebTestCase
         $this->client = static::createClient();
         $container = static::getContainer();
         $this->client->disableReboot();
-        $this->loginAsAdmin($container, $this->client);
+        $this->loginAsUser($container, $this->client);
 
         $this->entityManager = $container->get('doctrine.orm.entity_manager');
     }

@@ -17,11 +17,11 @@ trait TestsHelperTrait
         $reflectionProperty->setAccessible(false);
     }
 
-    public function loginAsAdmin(ContainerInterface $container, KernelBrowser $client)
+    public function loginAsUser(ContainerInterface $container, KernelBrowser $client, bool $isAdmin = true): void
     {
         /** @var UserRepository */
         $userRepository =  $container->get(UserRepository::class);
-        $user = $userRepository->find(1);
-        $client->loginUser($user);
+        $userId = $isAdmin ? 1 : 3;
+        $client->loginUser($userRepository->find($userId));
     }
 }

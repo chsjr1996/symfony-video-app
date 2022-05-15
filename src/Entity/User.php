@@ -32,6 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[Assert\NotBlank(message: 'Valid name is required')]
     #[ORM\Column(type: 'string', length: 45)]
     private $name;
 

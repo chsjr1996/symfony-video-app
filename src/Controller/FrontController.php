@@ -2,13 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\CategoryRepository;
+use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -16,6 +22,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class FrontController extends AbstractController
 {
+    public function __construct(private RequestStack $requestStack)
+    {
+    }
+
     #[Route('/', name: 'main_page')]
     public function index(): Response
     {
@@ -77,10 +87,36 @@ class FrontController extends AbstractController
         return $this->render('front/pricing.html.twig');
     }
 
+    /**
+     * @todo Needs a service to store User (clear this code...)
+     */
     #[Route('/register', name: 'register')]
-    public function register(): Response
-    {
-        return $this->render('front/register.html.twig');
+    public function register(
+        Request $request,
+        UserRepository $userRepository,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userFieldsData = $request->request->all('user');
+            $user->setName($userFieldsData['name']);
+            $user->setLastName($userFieldsData['last_name']);
+            $user->setEmail($userFieldsData['email']);
+            $password = $passwordHasher->hashPassword($user, $userFieldsData['password']['first']);
+            $user->setPassword($password);
+            $user->setRoles(['USER_ROLE']);
+
+            $userRepository->add($user, true);
+            $this->loginUserAutomatically($user);
+            return $this->redirectToRoute('admin_main_page');
+        }
+
+        return $this->render('front/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/login', name: 'login')]
@@ -89,6 +125,17 @@ class FrontController extends AbstractController
         return $this->render('front/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
+    }
+
+    private function loginUserAutomatically(User $user): void
+    {
+        $token = new UsernamePasswordToken(
+            $user,
+            'main',
+            $user->getRoles()
+        );
+        $this->container->get('security.token_storage')->setToken($token);
+        $this->requestStack->getSession()->set('_security_main', serialize($token));
     }
 
     #[Route('/logout', name: 'logout')]

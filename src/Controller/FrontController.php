@@ -75,10 +75,12 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/video-details', name: 'video_details')]
-    public function videoDetails(): Response
+    #[Route('/video-details/{video}', name: 'video_details')]
+    public function videoDetails(VideoRepository $videoRepository, $video): Response
     {
-        return $this->render('front/video_details.html.twig');
+        return $this->render('front/video_details.html.twig', [
+            'video' => $videoRepository->videoDetails($video),
+        ]);
     }
 
     #[Route('/pricing', name: 'pricing')]

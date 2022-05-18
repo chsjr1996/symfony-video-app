@@ -122,6 +122,9 @@ class VideoRepository extends ServiceEntityRepository
 
     private function prepareQuery(string $searchQuery): array
     {
-        return explode(' ', $searchQuery);
+        $terms = array_unique(explode(' ', $searchQuery));
+        return array_filter($terms, function ($term) {
+            return Video::MIN_SEARCH_CHARS <= strlen($term);
+        });
     }
 }

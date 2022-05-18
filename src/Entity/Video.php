@@ -16,6 +16,7 @@ class Video
     private const VIDEO_FOR_NOT_LOGGED_IN = 113716040;
     private const VIDEO_PATH = 'https://player.vimeo.com/video/';
     public const PER_PAGE = 5;
+    public const MIN_SEARCH_CHARS = 2;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

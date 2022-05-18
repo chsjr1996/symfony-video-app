@@ -51,21 +51,33 @@ class VideoRepository extends ServiceEntityRepository
 
     public function findByChildIds(array $categoryIds, int $page, ?string $sortBy): PaginationInterface
     {
-        $sortMethod = $sortBy != 'rating' ? $sortBy : 'ASC';
+        $query = $this->createQueryBuilder('v');
 
-        $query = $this->createQueryBuilder('v')
-            ->andWhere('v.category IN (:categoryIds)')
-            ->setParameter('categoryIds', $categoryIds)
-            ->orderBy('v.title', $sortMethod)
-            ->getQuery();
+        if ($sortBy != 'rating') {
+            $query->andWhere('v.category IN (:categoryIds)')
+                ->leftJoin('v.comments', 'c')
+                ->leftJoin('v.usersThatLike', 'l')
+                ->leftJoin('v.usersThatDontLike', 'd')
+                ->addSelect('c', 'l', 'd')
+                ->setParameter('categoryIds', $categoryIds)
+                ->orderBy('v.title', $sortBy);
+        } else {
+            $query->addSelect('COUNT(l) AS HIDDEN likes')
+                ->leftJoin('v.usersThatLike', 'l')
+                ->leftJoin('v.usersThatDontLike', 'd')
+                ->andWhere('v.category IN (:categoryIds)')
+                ->setParameter('categoryIds', $categoryIds)
+                ->groupBy('v')
+                ->orderBy('likes', 'DESC');
+        }
 
-        return $this->paginator->paginate($query, $page, 5);
+        $query->getQuery();
+
+        return $this->paginator->paginate($query, $page, Video::PER_PAGE);
     }
 
     public function findByTitle(string $searchQuery, int $page, ?string $sortBy): PaginationInterface
     {
-        $sortMethod = $sortBy != 'rating' ? $sortBy : 'ASC';
-
         $queryBuilder = $this->createQueryBuilder('v');
         $searchTerms = $this->prepareQuery($searchQuery);
 
@@ -74,8 +86,23 @@ class VideoRepository extends ServiceEntityRepository
                 ->setParameter('t_' . $key, '%' . strtolower(trim($term)) . '%');
         }
 
-        $query = $queryBuilder->orderBy('v.title', $sortMethod);
-        return $this->paginator->paginate($query, $page, 5);
+        if ($sortBy != 'rating') {
+            $query = $queryBuilder->orderBy('v.title', $sortBy)
+                ->orderBy('v.title', $sortBy)
+                ->leftJoin('v.comments', 'c')
+                ->leftJoin('v.usersThatLike', 'l')
+                ->leftJoin('v.usersThatDontLike', 'd')
+                ->addSelect('c', 'l', 'd');
+        } else {
+            $query = $queryBuilder->addSelect('COUNT(l) AS HIDDEN likes', 'c')
+                ->leftJoin('v.usersThatLike', 'l')
+                ->leftJoin('v.comments', 'c')
+                ->groupBy('v', 'c')
+                ->orderBy('likes', 'DESC');
+        }
+
+        $query->getQuery();
+        return $this->paginator->paginate($query, $page, Video::PER_PAGE);
     }
 
     /**

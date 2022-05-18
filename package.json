@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/chsjr1996/symfony-video-app#readme",
   "devDependencies": {
-    "@symfony/webpack-encore": "^2.1.0"
+    "@symfony/webpack-encore": "^2.1.0",
+    "core-js": "^3.22.5"
   }
 }

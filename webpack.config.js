@@ -7,11 +7,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .setOutputPath('public/assets/')
     .setPublicPath('/assets')
-    // .addEntry('app', './assets/app.js')
+    .addEntry('js/likes', './assets/js/likes.js')
     .addStyleEntry('css/dashboard', ['./assets/css/dashboard.css'])
     .addStyleEntry('css/login', ['./assets/css/login.css'])
-    .splitEntryChunks()
-    .enableSingleRuntimeChunk()
+    .addStyleEntry('css/likes', ['./assets/css/likes.css'])
+    // .splitEntryChunks()
+    // .enableSingleRuntimeChunk()
+    .disableSingleRuntimeChunk()
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
     })

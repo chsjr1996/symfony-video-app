@@ -64,7 +64,6 @@ class VideoFixtures extends Fixture
             [12, 3],
             [11, 1],
             [11, 2],
-            [11, 3],
             [1, 1],
             [1, 2],
         ];

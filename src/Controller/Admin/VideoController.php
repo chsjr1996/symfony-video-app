@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Repository\VideoRepository;
+use App\Service\VideoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/videos')]
 class VideoController extends AbstractController
 {
-    public function __construct(private VideoRepository $videoRepository)
+    public function __construct(private VideoService $videoService)
     {
     }
 
@@ -23,13 +23,9 @@ class VideoController extends AbstractController
     #[Route('/', name: 'admin_videos_list')]
     public function index(): Response
     {
-        $videos = [];
-
-        if ($this->isGranted('ROLE_ADMIN')) {
-            $videos = $this->videoRepository->findAll();
-        } else {
-            $videos = $this->getUser()->getLikedVideos();
-        }
+        $videos = $this->isGranted('ROLE_ADMIN')
+            ? $this->videoService->all()
+            : $this->videoService->allLiked($this->getUser());
 
         return $this->render('admin/video/index.html.twig', [
             'videos' => $videos,

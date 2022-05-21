@@ -20,7 +20,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/su/create', name: 'admin_categories_create', methods: ['GET'])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $formView = $this->createForm(CategoryType::class, null, [
             'action' => $this->generateUrl('admin_categories_store'),
@@ -28,7 +28,7 @@ class CategoryController extends AbstractController
 
         return $this->render('admin/category/form.html.twig', [
             'form' => $formView,
-            'is_invalid' => '',
+            'is_invalid' => ' ' . $request->get('isInvalid', ''),
         ]);
     }
 
@@ -47,25 +47,13 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su', name: 'admin_categories_list', methods: ['GET', 'POST'])]
+    #[Route('/su', name: 'admin_categories_list', methods: ['GET'])]
     public function index(Request $request, CategoryTreeAdminList $categories): Response
     {
         $categories->getCategoryList($categories->buildTree());
 
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $isInvalid = null;
-
-        if ($this->categoryService->save($request, $category, $form)) {
-            return $this->redirectToRoute('categories');
-        } else if ($request->isMethod('POST')) {
-            $isInvalid = ' is-invalid';
-        }
-
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categories->categoryListHtml,
-            'form' => $form->createView(),
-            'is_invalid' => $isInvalid,
         ]);
     }
 

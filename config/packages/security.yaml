@@ -34,7 +34,7 @@ security:
                 enable_csrf: true
 
                 # Session (for exempla when the users access directly to the login page)
-                default_target_path: admin_main_page
+                default_target_path: /
                 username_parameter: _email
 
             logout:

@@ -100,3 +100,20 @@ body {
 .sidebar .nav-link {
     color: #00bc8c;
 }
+
+.delete-form {
+    display: inline-block;
+}
+
+.delete-form input[type="submit"] {
+    appearance: unset;
+    background: unset;
+    color: #00bc8c;
+    border: unset;
+    cursor: pointer;
+}
+
+.delete-form input[type="submit"]:hover {
+    color: #007053;
+    text-decoration: underline;
+}

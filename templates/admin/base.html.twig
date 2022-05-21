@@ -26,34 +26,34 @@
 			<div class="sidebar-sticky">
 				<ul class="nav flex-column">
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('admin_main_page') }}">
+						<a class="nav-link" href="{{ path('admin_users_show', {'user': app.user.id}) }}">
 							<span data-feather="file"></span>
 							My profile
 						</a>
 					</li>
 					{% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item">
-							<a class="nav-link" href="{{ path('categories') }}">
+							<a class="nav-link" href="{{ path('admin_categories_list') }}">
 								<span data-feather="file"></span>
 								Categories
 							</a>
 						</li>
 					{% endif %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('videos') }}">
+						<a class="nav-link" href="{{ path('admin_videos_list') }}">
 							<span data-feather="shopping-cart"></span>
 							Videos
 						</a>
 					</li>
 					{% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item">
-							<a class="nav-link" href="{{ path('upload_video') }}">
+							<a class="nav-link" href="{{ path('admin_videos_create') }}">
 								<span data-feather="shopping-cart"></span>
 								Upload a video
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{ path('users') }}">
+							<a class="nav-link" href="{{ path('admin_users_list') }}">
 								<span data-feather="users"></span>
 								Users
 							</a>
@@ -66,7 +66,7 @@
 		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 				<h1 class="h2">
-					<a href="{{ path('admin_main_page') }}">Dashboard</a>
+					<a href="{{ path('admin_users_show', {'user': app.user.id}) }}">Dashboard</a>
 				</h1>
 			</div>
 			{% block mainadmin %}{% endblock %}

@@ -9,9 +9,9 @@
 	</form>
 
 	<nav class="my-2 my-md-0 mr-md-3">
-		{{ render(controller("App\\Controller\\FrontController::mainCategories")) }}
+		{{ render(controller("App\\Controller\\Front\\FrontController::mainCategories")) }}
 		{% if app.user %}
-			<a href="{{ path('admin_main_page') }}" class="p-2 text-dark">My account</a>
+			<a href="{{ path('admin_users_show', {'user': app.user.id}) }}" class="p-2 text-dark">My account</a>
 		{% endif %}
 	</nav>
 	{% if not app.user %}

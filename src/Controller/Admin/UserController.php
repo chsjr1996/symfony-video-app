@@ -8,14 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/users')]
+#[Route('/admin')]
 class UserController extends AbstractController
 {
     public function __construct(private UserService $userService)
     {
     }
 
-    #[Route('/su', name: 'admin_users_list')]
+    #[Route('/su/users', name: 'admin_users_list')]
     public function index(): Response
     {
         return $this->render('admin/user/index.html.twig', [
@@ -23,7 +23,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{user}', name: 'admin_users_show')]
+    #[Route('/users/{user}', name: 'admin_users_show')]
     public function show(User $user): Response
     {
         return $this->render('admin/user/form.html.twig');

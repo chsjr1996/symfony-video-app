@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/categories')]
+#[Route('/admin/su/categories')]
 class CategoryController extends AbstractController
 {
     public function __construct(private CategoryService $categoryService)
     {
     }
 
-    #[Route('/su/create', name: 'admin_categories_create', methods: ['GET'])]
+    #[Route('/create', name: 'admin_categories_create', methods: ['GET'])]
     public function create(Request $request): Response
     {
         $formView = $this->createForm(CategoryType::class, null, [
@@ -32,7 +32,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su/store', name: 'admin_categories_store', methods: ['POST'])]
+    #[Route('/store', name: 'admin_categories_store', methods: ['POST'])]
     public function store(Request $request): Response
     {
         $category = new Category();
@@ -47,7 +47,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su', name: 'admin_categories_list', methods: ['GET'])]
+    #[Route('/', name: 'admin_categories_list', methods: ['GET'])]
     public function index(Request $request, CategoryTreeAdminList $categories): Response
     {
         $categories->getCategoryList($categories->buildTree());
@@ -57,7 +57,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su/edit/{id}', name: 'admin_categories_edit', methods: ['GET'])]
+    #[Route('/edit/{id}', name: 'admin_categories_edit', methods: ['GET'])]
     public function edit(Category $category): Response
     {
         $formView = $this->createForm(CategoryType::class, $category, [
@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su/update/{id}', name: 'admin_categories_update', methods: ['PUT'])]
+    #[Route('/update/{id}', name: 'admin_categories_update', methods: ['PUT'])]
     public function update(Request $request, Category $category): Response
     {
         $form = $this->createForm(CategoryType::class, $category, [
@@ -89,7 +89,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/su/{id}', name: 'admin_categories_delete', methods: ['DELETE'])]
+    #[Route('/{id}', name: 'admin_categories_delete', methods: ['DELETE'])]
     public function delete(Category $category): Response
     {
         $this->categoryService->remove($category);

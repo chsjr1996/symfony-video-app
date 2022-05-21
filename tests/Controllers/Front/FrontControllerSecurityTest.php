@@ -27,8 +27,7 @@ class FrontControllerSecurityTest extends WebTestCase
     private function getSecureUrls()
     {
         yield ['/admin/videos'];
-        yield ['/admin'];
+        yield ['/admin/users/3'];
         yield ['/admin/su/categories'];
-        yield ['/admin/su/delete-category/1'];
     }
 }

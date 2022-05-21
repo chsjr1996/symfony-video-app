@@ -7,7 +7,7 @@ use App\Tests\TestsHelperTrait;
 use App\Tests\WebTestCase;
 use Doctrine\ORM\EntityManager;
 
-class AdminControllerCategoriesTest extends WebTestCase
+class CategoriesControllerTest extends WebTestCase
 {
     use TestsHelperTrait;
 
@@ -27,28 +27,19 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testTextOnPage(): void
     {
-        $crawler = $this->client->request('GET', '/admin/su/categories');
+        $crawler = $this->client->request('GET', '/admin/su/categories/');
 
         $this->assertSame('Categories list', $crawler->filter('h2')->text());
         $this->assertStringContainsString('Electronics', $this->client->getResponse()->getContent());
     }
 
-    public function testNumberOfItems(): void
-    {
-        $crawler = $this->client->request('GET', '/admin/su/categories');
-        $this->assertCount(21, $crawler->filter('option'));
-    }
-
     public function testNewCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/su/categories');
-
-        $form =  $crawler->selectButton('Add')->form([
+        $this->client->request('GET', '/admin/su/categories/create');
+        $this->client->submitForm('Save', [
             'category[parent]' => 1,
             'category[name]' => 'Other Electronics',
         ]);
-
-        $this->client->submit($form);
 
         $category = $this->entityManager
             ->getRepository(Category::class)
@@ -60,12 +51,11 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testEditCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/su/edit-category/1');
-        $form = $crawler->selectButton('Save')->form([
+        $this->client->request('GET', '/admin/su/categories/edit/1');
+        $this->client->submitForm('Save', [
             'category[parent]' => 0,
             'category[name]' => 'Electronics 2',
         ]);
-        $this->client->submit($form);
 
         $category = $this->entityManager
             ->getRepository(Category::class)
@@ -76,7 +66,7 @@ class AdminControllerCategoriesTest extends WebTestCase
 
     public function testDeleteCategory(): void
     {
-        $crawler = $this->client->request('GET', '/admin/su/delete-category/1');
+        $this->client->request('DELETE', '/admin/su/categories/1');
         $category = $this->entityManager
             ->getRepository(Category::class)
             ->find(1);

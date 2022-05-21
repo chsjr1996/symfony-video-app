@@ -6,7 +6,7 @@ use App\Tests\TestsHelperTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminControllerSecurityTest extends WebTestCase
+class AdminControllersSecurityTest extends WebTestCase
 {
     use TestsHelperTrait;
 
@@ -23,16 +23,16 @@ class AdminControllerSecurityTest extends WebTestCase
     public function testAdminSu()
     {
         $this->loginAsUser();
-        $crawler = $this->client->request('GET', '/admin/su/categories');
+        $crawler = $this->client->request('GET', '/admin/su/categories/');
         $this->assertSame('Categories list', $crawler->filter('h2')->text());
     }
 
     private function getUrlsForRegularUsers()
     {
-        yield ['GET', '/admin/su/categories'];
-        yield ['GET', '/admin/su/edit-category/1'];
-        yield ['GET', '/admin/su/delete-category/1'];
+        yield ['GET', '/admin/su/categories/'];
+        yield ['GET', '/admin/su/categories/edit/1'];
+        yield ['DELETE', '/admin/su/categories/1'];
         yield ['GET', '/admin/su/users'];
-        yield ['GET', '/admin/su/upload-video'];
+        yield ['GET', '/admin/su/videos/create'];
     }
 }

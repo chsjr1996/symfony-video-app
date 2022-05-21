@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,10 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/users')]
 class UserController extends AbstractController
 {
+    public function __construct(private UserService $userService)
+    {
+    }
+
     #[Route('/su', name: 'admin_users_list')]
     public function index(): Response
     {
-        return $this->render('admin/user/index.html.twig');
+        return $this->render('admin/user/index.html.twig', [
+            'users' => $this->userService->all(),
+        ]);
     }
 
     #[Route('/{user}', name: 'admin_users_show')]

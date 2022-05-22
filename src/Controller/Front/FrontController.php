@@ -19,15 +19,9 @@ class FrontController extends AbstractController
         return $this->render('front/index.html.twig');
     }
 
-    #[Route('/payment', name: 'payment', methods: ['GET'])]
-    public function payment(): Response
-    {
-        return $this->render('front/payment.html.twig');
-    }
-
     public function mainCategories(): Response
     {
         $categories = $this->categoryService->listMainCategories();
-        return $this->render('front/partials/_main_categories.html.twig', compact('categories'));
+        return $this->render('front/_partials/_main_categories.html.twig', compact('categories'));
     }
 }

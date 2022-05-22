@@ -31,7 +31,7 @@
                             </i>
 
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                                {{ include('front/includes/_likes.html.twig', {'video': video}) }}
+                                {{ include('front/_partials/_likes.html.twig', {'video': video}) }}
                             {% endif %}
 
                             <a href="{{ path('video_details', {'id': video.id}) }}#video_comments" id="video_{{ video.id }}_CommentsQty" class="ml-1">Comments ({{ video.comments.count }})</a>

@@ -7,7 +7,7 @@
         name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
+        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 
         <style>
             .form-control {
@@ -15,7 +15,7 @@
             }
         </style>
 
-        <link rel="stylesheet" href="{{asset('assets/css/fontawesome.min.css')}}"> {% block customstylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}"> {% block customstylesheets %}{% endblock %}
 
         <title>
             {% block title %}Symfony 4 course app - video sharing service
@@ -26,11 +26,11 @@
     <body class="text-center">
         <div class="container-fluid">
             {% block menu %}
-                {% include "front/includes/menu.html.twig" %}
+                {% include "front/_partials/_menu.html.twig" %}
             {% endblock %}
             {% block main %}{% endblock %}
             {% block footer %}
-                {% include "front/includes/footer_links.html.twig" %}
+                {% include "front/_partials/_footer_links.html.twig" %}
             {% endblock %}
         </div>
 

@@ -21,6 +21,7 @@ class Subscription
         'pro' => ['text' => 'Get started', 'class' => 'btn-primary'],
         'enterprise' => ['text' => 'Contact us', 'class' => 'btn-primary'],
     ];
+    public const PLAN_DEFAULT_DURATION = '+1 month';
 
     public const STATUS_CANCELED = 'canceled';
     public const STATUS_PENDING = 'pending';

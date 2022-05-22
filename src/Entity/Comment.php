@@ -25,11 +25,11 @@ class Comment
     private $created_at2;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, name: 'owner_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private $owner;
 
     #[ORM\ManyToOne(targetEntity: Video::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, name: 'video_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private $video;
 
     public function getId(): ?int

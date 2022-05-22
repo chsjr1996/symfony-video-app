@@ -53,6 +53,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinTable(name: 'dislikes')]
     private $dislikedVideos;
 
+    #[ORM\OneToOne(targetEntity: Subscription::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private $subscription;
+
     public function __construct()
     {
         $this->likedVideos = new ArrayCollection();
@@ -215,6 +218,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->dislikedVideos->removeElement($dislikedVideo)) {
             $dislikedVideo->removeUsersThatDontLike($this);
         }
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }

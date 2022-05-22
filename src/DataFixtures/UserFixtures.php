@@ -38,6 +38,7 @@ class UserFixtures extends Fixture
             ['Anakin', 'Skywalker', 'vader@darth.com', 'jd8dehdh', ['ROLE_ADMIN']],
             ['Leia', 'Organa', 'leia@commander.com', null, ['ROLE_ADMIN']],
             ['Luke', 'Skywalker', 'luke@jedi.com', null, ['ROLE_USER']],
+            ['Obi-Wan', 'Kenobi', 'obiwan@jedi.com', null, ['ROLE_USER']],
         ];
     }
 }

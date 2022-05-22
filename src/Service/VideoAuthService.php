@@ -9,26 +9,30 @@ use Symfony\Component\Security\Core\Security;
 
 class VideoAuthService
 {
-    private User $user;
-
-    public function __construct(private Security $security) {
+    public function __construct(
+        private Security $security,
+        private ?User $user = null
+    ) {
         $this->user = $security->getUser();
     }
 
     public function checkSubscription()
     {
-        if (!$this->user || $this->user->getSubscription() == null) {
-            return false;
-        }
+        try {
+            if (!$this->user || $this->user->getSubscription() == null) {
+                throw new \Exception('invalid user!');
+            }
+            $paymentStatus = $this->user->getSubscription()->getPaymentStatus();
+            $valid = new \DateTime() < $this->user->getSubscription()->getValidTo();
 
-        $paymentStatus = $this->user->getSubscription()->getPaymentStatus();
-        $valid = new \DateTime() < $this->user->getSubscription()->getValidTo();
+            if (in_array($paymentStatus, Subscription::INVALIDS_STATUS) || !$valid) {
+                throw new \Exception('invalid user!');
+            }
 
-        if (in_array($paymentStatus, Subscription::INVALIDS_STATUS) || !$valid) {
+            return null;
+        } catch (\Exception $ex) {
             static $video = Video::VIDEO_FOR_NON_MEMBER;
             return $video;
         }
-
-        return null;
     }
 }

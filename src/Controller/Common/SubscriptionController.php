@@ -14,6 +14,14 @@ class SubscriptionController extends AbstractController
     {
     }
 
+    #[Route('/pricing', name: 'pricing', methods: ['GET'])]
+    public function pricing(): Response
+    {
+        return $this->render('front/pricing.html.twig', [
+            'plans' => $this->subscriptionService->getAllPlans(),
+        ]);
+    }
+
     #[Route('/cancel', name: 'cancel_plan')]
     public function cancelPlan(): Response
     {

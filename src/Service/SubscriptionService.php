@@ -23,4 +23,24 @@ class SubscriptionService
         $this->userRepository->add($user, true);
         $this->subscriptionRepository->add($subscription, true);
     }
+
+    public function getAllPlans(): array
+    {
+        $plans = [];
+        $plansNames = Subscription::getAllPlansNames();
+        $plansPrices = Subscription::getAllPlansPrices();
+        $plansDescriptions = Subscription::getAllPlansDescriptions();
+        $plansButtons = Subscription::getAllPlansButtons();
+
+        foreach ($plansNames as $planName) {
+            $plans[] = [
+                'name' => $planName,
+                'price' => $plansPrices[$planName],
+                'descriptions' => $plansDescriptions[$planName],
+                'buttons' => $plansButtons[$planName],
+            ];
+        }
+
+        return $plans;
+    }
 }

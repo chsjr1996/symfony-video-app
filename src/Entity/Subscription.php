@@ -11,6 +11,17 @@ class Subscription
 {
     private const PLAN_NAMES = ['free', 'pro', 'enterprise'];
     private const PLAN_PRICES = ['free' => 0, 'pro' => 15, 'enterprise' => 29];
+    private const PLAN_DESCRIPTIONS = [
+        'free' => ['Access for one month', 'Help center access'],
+        'pro' => ['Unlimited access', 'HD available', 'No ads on videos', 'Help center access'],
+        'enterprise' => ['Unlimited access', 'Ultra HD available', 'No ads on videos', 'Help center access', 'Unlimited live events'],
+    ];
+    private const PLAN_BUTTONS = [
+        'free' => ['text' => 'Sign up for free', 'class' => 'btn-outline-primary'],
+        'pro' => ['text' => 'Get started', 'class' => 'btn-primary'],
+        'enterprise' => ['text' => 'Contact us', 'class' => 'btn-primary'],
+    ];
+
     public const STATUS_CANCELED = 'canceled';
     public const STATUS_PENDING = 'pending';
     public const STATUS_PAID = 'paid';
@@ -104,5 +115,15 @@ class Subscription
     public static function getAllPlansPrices(): array
     {
         return self::PLAN_PRICES;
+    }
+
+    public static function getAllPlansDescriptions(): array
+    {
+        return self::PLAN_DESCRIPTIONS;
+    }
+
+    public static function getAllPlansButtons(): array
+    {
+        return self::PLAN_BUTTONS;
     }
 }

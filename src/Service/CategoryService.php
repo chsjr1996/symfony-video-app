@@ -13,9 +13,6 @@ class CategoryService
     {
     }
 
-    /**
-     * @todo fix: edit_category exception caused by empty category name
-     */
     public function save(Request $request, Category $category, FormInterface $form): bool
     {
         $form->handleRequest($request);
@@ -33,6 +30,14 @@ class CategoryService
         }
 
         return false;
+    }
+
+    public function listMainCategories()
+    {
+        return $this->categoryRepository->findBy(
+            ['parent' => null],
+            ['name' => 'ASC']
+        );
     }
 
     public function remove(Category $category): bool

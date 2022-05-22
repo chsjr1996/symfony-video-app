@@ -42,7 +42,7 @@ security:
                 path: logout
 
                 # The name of the route to redirect to after logging out
-                target: main_page
+                target: front_main_page
 
             remember_me:
                 secret: '%kernel.secret%'

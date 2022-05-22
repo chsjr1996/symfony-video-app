@@ -26,7 +26,7 @@
 						<td>{{ loop.index }}</td>
 						<td>{{ video.title }}</td>
 						<td>
-							<a target="_blank" href="{{ path('video_details', {'video': video.id}) }}">go to video</a>
+							<a target="_blank" href="{{ path('video_details', {'id': video.id}) }}">go to video</a>
 						</td>
 						{% if is_granted('ROLE_ADMIN') %}
 							<td>

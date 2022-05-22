@@ -58,7 +58,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'admin_categories_edit', methods: ['GET'])]
-    public function edit(Category $category): Response
+    public function edit(Request $request, Category $category): Response
     {
         $formView = $this->createForm(CategoryType::class, $category, [
             'action' => $this->generateUrl('admin_categories_update', ['id' => $category->getId()]),
@@ -68,7 +68,7 @@ class CategoryController extends AbstractController
         return $this->render('admin/category/form.html.twig', [
             'category' => $category,
             'form' => $formView,
-            'is_invalid' => '',
+            'is_invalid' => ' ' . $request->get('isInvalid', ''),
         ]);
     }
 

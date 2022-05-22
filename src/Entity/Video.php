@@ -13,8 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Index(name: 'title_idx', columns: ['title'])]
 class Video
 {
-    private const VIDEO_FOR_NOT_LOGGED_IN = 113716040;
     private const VIDEO_PATH = 'https://player.vimeo.com/video/';
+    public const VIDEO_FOR_NON_MEMBER = 113716040;
     public const PER_PAGE = 5;
     public const MIN_SEARCH_CHARS = 2;
 
@@ -75,13 +75,9 @@ class Video
         return $this->path;
     }
 
-    public function getVimeoId(?UserInterface $user): string
+    public function getVimeoId(): string
     {
-        if ($user) {
-            return $this->path;
-        }
-
-        return self::VIDEO_PATH . self::VIDEO_FOR_NOT_LOGGED_IN;
+        return $this->path;
     }
 
     public function setPath(string $path): self
@@ -191,5 +187,10 @@ class Video
         $this->usersThatDontLike->removeElement($usersThatDontLike);
 
         return $this;
+    }
+
+    public function getVideoVimeoPath(): string
+    {
+        return self::VIDEO_PATH;
     }
 }

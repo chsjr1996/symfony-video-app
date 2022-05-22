@@ -14,6 +14,7 @@ class Subscription
     public const STATUS_CANCELED = 'canceled';
     public const STATUS_PENDING = 'pending';
     public const STATUS_PAID = 'paid';
+    public const INVALIDS_STATUS = [self::STATUS_CANCELED, null];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

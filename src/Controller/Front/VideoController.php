@@ -3,6 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Entity\Video;
+use App\Service\VideoAuthService;
 use App\Service\VideoService;
 use App\Utils\CategoryTreeFrontPage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,8 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VideoController extends AbstractController
 {
-    public function __construct(private VideoService $videoService)
-    {
+    public function __construct(
+        private VideoService $videoService,
+        private VideoAuthService $videoAuthService,
+    ) {
     }
 
     #[Route('/search-results/{page}', name: 'search_results', methods: ['GET'], defaults: ['page' => "1"])]
@@ -24,6 +27,7 @@ class VideoController extends AbstractController
         return $this->render('front/search_results.html.twig', [
             'videos' => $videos,
             'query' => $request->get('query'),
+            'video_non_members' => $this->videoAuthService->checkSubscription(),
         ]);
     }
 
@@ -35,6 +39,7 @@ class VideoController extends AbstractController
         return $this->render('front/videolist.html.twig', [
             'subcategories' => $categories,
             'videos' => $videos,
+            'video_non_members' => $this->videoAuthService->checkSubscription(),
         ]);
     }
 
@@ -43,6 +48,7 @@ class VideoController extends AbstractController
     {
         return $this->render('front/video_details.html.twig', [
             'video' => $this->videoService->showVideoDetails($id),
+            'video_non_members' => $this->videoAuthService->checkSubscription(),
         ]);
     }
 

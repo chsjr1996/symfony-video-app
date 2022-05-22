@@ -4,7 +4,7 @@ namespace App\Tests\Controllers\Front;
 
 use App\Tests\WebTestCase;
 
-class FrontControllerVideoTest extends WebTestCase
+class VideoControllerTest extends WebTestCase
 {
     public function testNoResults(): void
     {

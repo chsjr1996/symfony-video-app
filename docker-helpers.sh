@@ -10,38 +10,51 @@ function clear_database() {
   fi
 
   echo
+
+  consoleEnv=""
+  if [[ "$2" = "tests" || "$3" = "tests" ]]; then
+    consoleEnv="--env=test"
+    echo "Test DB!!!"
+    echo
+  fi
+
   echo "Cleaning database"
-  docker-compose exec php ./bin/console doctrine:schema:drop -n -q --force --full-database
+  docker-compose exec php ./bin/console $consoleEnv doctrine:schema:drop --force --full-database
 
-  echo "Cleaning migrations"
-  rm -rf migrations/*.php
+  if [[ "$2" = "--re-migrate" || "$3" = "--re-migrate" ]]; then
+    echo "Cleaning migrations"
+    rm -rf migrations/*.php
 
-  echo "Creating migrations"
-  docker-compose exec php ./bin/console make:migration -n -q
+    echo "Creating migrations"
+    docker-compose exec php ./bin/console $consoleEnv make:migration
+  fi
 
   echo "Running migrations"
-  docker-compose exec php ./bin/console doctrine:migrations:migrate -n -q
+  docker-compose exec php ./bin/console $consoleEnv doctrine:migrations:migrate
 
   echo "Running fixtures"
-  docker-compose exec php ./bin/console doctrine:fixtures:load -n -q
+  docker-compose exec php ./bin/console $consoleEnv doctrine:fixtures:load
 }
 
 
 case $1 in
     --rebuild-db)
-        clear_database
+        clear_database $@
         ;;
     --console)
-        docker-compose exec php ./bin/console $2
+        docker-compose exec php ./bin/console $2 $3
         ;;
     --tests)
-        docker-compose exec php ./bin/phpunit $2
+        docker-compose exec php ./bin/phpunit $2 $3
+        ;;
+    --testdox)
+        docker-compose exec php ./bin/phpunit --testdox --stop-on-failure $2
         ;;
     --exec)
-        docker-compose exec php $2
+        docker-compose exec php $@
         ;;
     *)
-        echo "Options are: '--rebuild-db', '--console', '--tests', '--exec'"
+        echo "Options are: '--rebuild-db', '--console', '--tests', '--testdox', '--exec'"
         ;;
 esac
 

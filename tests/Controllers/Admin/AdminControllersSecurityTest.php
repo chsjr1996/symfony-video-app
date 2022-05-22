@@ -5,6 +5,7 @@ namespace App\Tests\Controllers\Admin;
 use App\Tests\TestsHelperTrait;
 use App\Tests\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AdminControllersSecurityTest extends WebTestCase
 {
@@ -15,7 +16,9 @@ class AdminControllersSecurityTest extends WebTestCase
      */
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
+        $this->expectException(AccessDeniedException::class);
         $this->loginAsUser(false);
+        $this->client->catchExceptions(false);
         $this->client->request($httpMethod, $url);
         $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
     }

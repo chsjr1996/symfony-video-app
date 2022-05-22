@@ -28,4 +28,12 @@ class UserController extends AbstractController
     {
         return $this->render('admin/user/form.html.twig');
     }
+
+    #[Route('/my_profile', name: 'admin_users_my_profile')]
+    public function myProfile(): Response
+    {
+        return $this->render('admin/user/form.html.twig', [
+            'subscription' => $this->getUser()->getSubscription(),
+        ]);
+    }
 }

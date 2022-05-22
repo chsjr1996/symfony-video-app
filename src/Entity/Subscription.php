@@ -11,7 +11,8 @@ class Subscription
 {
     private const PLAN_NAMES = ['free', 'pro', 'enterprise'];
     private const PLAN_PRICES = ['free' => 0, 'pro' => 15, 'enterprise' => 29];
-    public const STAUTS_PENDING = 'pending';
+    public const STATUS_CANCELED = 'canceled';
+    public const STATUS_PENDING = 'pending';
     public const STATUS_PAID = 'paid';
 
     #[ORM\Id]
@@ -94,7 +95,7 @@ class Subscription
         return self::PLAN_PRICES[$name] ?? null;
     }
 
-    public static function getAllPlans(): array
+    public static function getAllPlansNames(): array
     {
         return self::PLAN_NAMES;
     }

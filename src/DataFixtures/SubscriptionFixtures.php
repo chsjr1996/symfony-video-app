@@ -42,7 +42,14 @@ class SubscriptionFixtures extends Fixture
             [
                 2,
                 Subscription::getPlanDataNameByIndex(2),
-                (new \DateTime())->modify('+1 month'),
+                (new \DateTime())->modify('+100 year'),
+                Subscription::STATUS_PAID,
+                false,
+            ],
+            [
+                3,
+                Subscription::getPlanDataNameByIndex(1),
+                (new \DateTime())->modify('+100 year'),
                 Subscription::STATUS_PAID,
                 false,
             ],

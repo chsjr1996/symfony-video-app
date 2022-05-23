@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Index(name: 'title_idx', columns: ['title'])]
 class Video
 {
-    private const VIDEO_PATH = 'https://player.vimeo.com/video/';
+    public const VIDEO_PATH = 'https://player.vimeo.com/video/';
     public const VIDEO_FOR_NON_MEMBER = 113716040;
     public const PER_PAGE = 5;
     public const MIN_SEARCH_CHARS = 2;

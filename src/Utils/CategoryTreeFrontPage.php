@@ -64,7 +64,9 @@ class CategoryTreeFrontPage extends CategoryTreeAbstract
 
     public function getChildIds(int $parent): array
     {
-        static $categoryIds = [];
+        // TODO: study more about static variables, here this way cause strange (and EXpected) behaviors...
+        // static $categoryIds = [];
+        $categoryIds = [];
 
         foreach ($this->categoriesTree as $category) {
             if ($category['parent_id'] == $parent) {

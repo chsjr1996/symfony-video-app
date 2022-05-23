@@ -31,7 +31,9 @@ class VideoAuthService
 
             return null;
         } catch (\Exception $ex) {
-            static $video = Video::VIDEO_FOR_NON_MEMBER;
+            // TODO: Another 'static' use...
+            // static $video = Video::VIDEO_FOR_NON_MEMBER;
+            $video = Video::VIDEO_FOR_NON_MEMBER;
             return $video;
         }
     }

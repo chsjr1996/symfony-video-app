@@ -68,4 +68,15 @@ class UserService
         $container->get('security.token_storage')->setToken($token);
         $this->requestStack->getSession()->set('_security_main', serialize($token));
     }
+
+    public function remove(User $user): bool
+    {
+        try {
+            $this->userRepository->remove($user, true);
+            return true;
+        } catch (\Exception $ex) {
+            // TODO: Log...
+            return false;
+        }
+    }
 }

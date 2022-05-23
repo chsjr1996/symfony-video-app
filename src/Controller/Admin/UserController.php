@@ -36,4 +36,22 @@ class UserController extends AbstractController
             'subscription' => $this->getUser()->getSubscription(),
         ]);
     }
+
+    #[Route('/users/delete/{user}', name: 'admin_users_delete', methods: ['DELETE'])]
+    public function delete(User $user): Response
+    {
+        $selfUser = $user->getId() === $this->getUser()->getId();
+
+        if (!$selfUser && !$this->isGranted('ADMIN_ROLE')) {
+            // TODO: Launch a warning, maybe logout too?
+            return $this->redirectToRoute('admin_users_my_profile');
+        }
+
+        if ($this->userService->remove($user) && $selfUser) {
+            session_destroy();
+            return $this->redirectToRoute('front_main_page');
+        }
+
+        return $this->redirectToRoute('admin_users_list');
+    }
 }

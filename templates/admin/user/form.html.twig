@@ -3,7 +3,10 @@
 {% block mainadmin %}
     <h2>My profile
         <small>
-            <a onclick="return confirm('Are you sure?');" href="#">delete account</a>
+            <form action="{{ path('admin_users_delete', {'user': app.user.id}) }}" method="POST" class="delete-form">
+                <input type="hidden" name="_method" value="DELETE" />
+                <input type="submit" class="" onclick="return confirm('Are you sure?');" value="delete account" />
+            </form>
         </small>
     </h2>
 

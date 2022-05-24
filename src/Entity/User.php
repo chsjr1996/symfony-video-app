@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $last_name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $video_api_key;
+    private $vimeo_api_key;
 
     #[ORM\ManyToMany(targetEntity: Video::class, mappedBy: 'usersThatLike')]
     #[ORM\JoinTable(name: 'likes')]
@@ -156,14 +156,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getVideoApiKey(): ?string
+    public function getVimeoApiKey(): ?string
     {
-        return $this->video_api_key;
+        return $this->vimeo_api_key;
     }
 
-    public function setVideoApiKey(?string $video_api_key): self
+    public function setVimeoApiKey(?string $vimeo_api_key): self
     {
-        $this->video_api_key = $video_api_key;
+        $this->vimeo_api_key = $vimeo_api_key;
 
         return $this;
     }

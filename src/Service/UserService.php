@@ -27,14 +27,15 @@ class UserService
      */
     public function all(): array
     {
-        return $this->userRepository->findAll();
+        return $this->userRepository->findBy([], ['name' => 'ASC']);
     }
 
     public function save(
         Request $request,
         User $user,
         FormInterface $form,
-        ServiceLocator $container
+        ServiceLocator $container,
+        bool $fromAdminPanel = false
     ): bool {
         $form->handleRequest($request);
 
@@ -46,15 +47,50 @@ class UserService
             $user->setEmail($userFieldsData['email']);
             $password = $this->passwordHasher->hashPassword($user, $userFieldsData['password']['first']);
             $user->setPassword($password);
-            $user->setRoles(['USER_ROLE']);
+
+            if ($fromAdminPanel && in_array('ROLE_ADMIN', $user->getRoles())) {
+                $user->setVimeoApiKey($userFieldsData['vimeo_api_key']);
+            } else {
+                $user->setRoles(['USER_ROLE']);
+            }
 
             $this->userRepository->add($user, true);
-            $this->loginUserAutomatically($user, $container);
+
+            if (!$fromAdminPanel) {
+                $this->loginUserAutomatically($user, $container);
+            }
 
             return true;
         }
 
         return false;
+    }
+
+    public function getById(int $id): User
+    {
+        return $this->userRepository->find($id);
+    }
+
+    public function remove(User $user): bool
+    {
+        try {
+            $this->userRepository->remove($user, true);
+            return true;
+        } catch (\Exception $ex) {
+            // TODO: Log...
+            return false;
+        }
+    }
+
+    public function logoutUser(ServiceLocator $container): bool
+    {
+        try {
+            $container->get('security.token_storage')->setToken(null);
+            $this->requestStack->getSession()->invalidate();
+            return true;
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     private function loginUserAutomatically(User $user, ServiceLocator $container): void
@@ -67,16 +103,5 @@ class UserService
 
         $container->get('security.token_storage')->setToken($token);
         $this->requestStack->getSession()->set('_security_main', serialize($token));
-    }
-
-    public function remove(User $user): bool
-    {
-        try {
-            $this->userRepository->remove($user, true);
-            return true;
-        } catch (\Exception $ex) {
-            // TODO: Log...
-            return false;
-        }
     }
 }

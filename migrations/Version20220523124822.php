@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220522211903 extends AbstractMigration
+final class Version20220523124822 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -33,7 +33,7 @@ final class Version20220522211903 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_5F9E962A29C1004E ON comments (video_id)');
         $this->addSql('COMMENT ON COLUMN comments.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE subscriptions (id INT NOT NULL, plan VARCHAR(255) NOT NULL, valid_to TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, payment_status VARCHAR(45) DEFAULT NULL, free_plan_used BOOLEAN DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE users (id INT NOT NULL, subscription_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(45) NOT NULL, last_name VARCHAR(45) NOT NULL, video_api_key VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE users (id INT NOT NULL, subscription_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(45) NOT NULL, last_name VARCHAR(45) NOT NULL, vimeo_api_key VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9E7927C74 ON users (email)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E99A1887DC ON users (subscription_id)');
         $this->addSql('CREATE TABLE videos (id INT NOT NULL, category_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, path VARCHAR(255) NOT NULL, duration INT DEFAULT NULL, PRIMARY KEY(id))');

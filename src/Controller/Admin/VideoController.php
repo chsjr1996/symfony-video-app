@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\Video;
 use App\Form\VideoType;
+use App\Service\Implementations\CategoryService;
+use App\Service\Implementations\CategoryTreeAdminOptionList;
 use App\Service\Implementations\VideoService;
 use App\Service\Interfaces\VideoUploaderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,8 +16,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin')]
 class VideoController extends AbstractController
 {
-    public function __construct(private VideoService $videoService)
-    {
+    public function __construct(
+        private VideoService $videoService,
+        private CategoryService $categoryService
+    ) {
     }
 
     #[Route('/su/videos/upload', name: 'admin_videos_upload')]
@@ -40,15 +44,37 @@ class VideoController extends AbstractController
     }
 
     #[Route('/videos', name: 'admin_videos_list')]
-    public function index(): Response
+    public function index(CategoryTreeAdminOptionList $categoryOptionList): Response
     {
         $videos = $this->isGranted('ROLE_ADMIN')
             ? $this->videoService->all()
             : $this->videoService->allLiked($this->getUser());
 
+        $categories = $this->isGranted('ROLE_ADMIN')
+            ? $categoryOptionList->getCategoryList($categoryOptionList->buildTree())
+            : [];
+
         return $this->render('admin/video/index.html.twig', [
             'videos' => $videos,
+            'categories' => $categories,
         ]);
+    }
+
+    #[Route('/update-video-category/{video}', name: 'update_video_category')]
+    public function updateVideoCategory(Request $request, Video $video): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $category = $this->categoryService->getById($request->get('video_category'));
+        $success = $this->videoService->updateCategory($video, $category);
+        $flashType = $success ? 'success' : 'danger';
+        $flashMessage = $success
+            ? "Category of video (id: {$video->getId()}) was updated!"
+            : 'Error on update category, try again later!';
+
+        $this->addFlash($flashType, $flashMessage);
+
+        return $this->redirectToRoute('admin_videos_list');
     }
 
     #[Route('/{video}', name: 'delete_locally', methods: ['DELETE'])]

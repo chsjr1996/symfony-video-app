@@ -40,6 +40,11 @@ class CategoryService
         );
     }
 
+    public function getById(int $id): ?Category
+    {
+        return $this->categoryRepository->find($id);
+    }
+
     public function remove(Category $category): bool
     {
         $this->categoryRepository->remove($category, true);

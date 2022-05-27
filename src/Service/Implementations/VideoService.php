@@ -2,6 +2,7 @@
 
 namespace App\Service\Implementations;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Video;
@@ -70,12 +71,29 @@ class VideoService
         }
     }
 
+    public function updateCategory(Video $video, Category $category): bool
+    {
+        try {
+            if (is_null($category)) {
+                throw new \Exception('Category cannot be null in this action!');
+            }
+
+            $video->setCategory($category);
+            $this->videoRepository->add($video, true);
+
+            return true;
+        } catch (\Exception $ex) {
+            // TODO: Log
+            return false;
+        }
+    }
+
     /**
      * @return Video[]
      */
     public function all(): array
     {
-        return $this->videoRepository->findAll();
+        return $this->videoRepository->findBy([], ['title' => 'ASC']);
     }
 
     /**

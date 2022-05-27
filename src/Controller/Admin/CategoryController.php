@@ -4,9 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Service\CategoryService;
-use App\Utils\CategoryTreeAdminList;
-use App\Utils\CategoryTreeAdminOptionList;
+use App\Service\Implementations\CategoryService;
+use App\Service\Implementations\CategoryTreeAdminList;
+use App\Service\Implementations\CategoryTreeAdminOptionList;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +48,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/', name: 'admin_categories_list', methods: ['GET'])]
-    public function index(Request $request, CategoryTreeAdminList $categories): Response
+    public function index(CategoryTreeAdminList $categories): Response
     {
         $categories->getCategoryList($categories->buildTree());
 

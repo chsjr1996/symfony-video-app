@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Tests\Utils;
+namespace App\Tests\Service;
 
+use App\Service\Implementations\CategoryTreeAdminList;
+use App\Service\Implementations\CategoryTreeAdminOptionList;
+use App\Service\Implementations\CategoryTreeFrontPage;
 use App\Tests\TestsHelperTrait;
 use App\Twig\AppExtension;
-use App\Utils\CategoryTreeAdminList;
-use App\Utils\CategoryTreeAdminOptionList;
-use App\Utils\CategoryTreeFrontPage;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CategoryTest extends KernelTestCase

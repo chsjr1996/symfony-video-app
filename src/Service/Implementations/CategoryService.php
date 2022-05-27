@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Implementations;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;

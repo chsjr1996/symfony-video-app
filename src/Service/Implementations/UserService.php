@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Implementations;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;

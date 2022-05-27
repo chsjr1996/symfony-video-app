@@ -3,9 +3,9 @@
 namespace App\Controller\Front;
 
 use App\Entity\Video;
-use App\Service\VideoAuthService;
-use App\Service\VideoService;
-use App\Utils\CategoryTreeFrontPage;
+use App\Service\Implementations\CategoryTreeFrontPage;
+use App\Service\Implementations\VideoAuthService;
+use App\Service\Implementations\VideoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utils;
+namespace App\Service\Implementations;
 
-use App\Utils\AbstractClasses\CategoryTreeAbstract;
+use App\Service\Abstracts\CategoryTreeAbstract;
 
 class CategoryTreeFrontPage extends CategoryTreeAbstract
 {

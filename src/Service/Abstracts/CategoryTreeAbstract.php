@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils\AbstractClasses;
+namespace App\Service\Abstracts;
 
 use App\Twig\AppExtension;
 use Doctrine\ORM\EntityManagerInterface;

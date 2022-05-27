@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Implementations;
 
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Video;
 use App\Repository\CommentRepository;
 use App\Repository\VideoRepository;
-use App\Utils\CategoryTreeFrontPage;
+use App\Service\Interfaces\VideoUploaderInterface;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class VideoService
 {
@@ -16,6 +18,56 @@ class VideoService
         private VideoRepository $videoRepository,
         private CommentRepository $commentRepository,
     ) {
+    }
+
+    /**
+     * 
+     */
+    public function saveLocally(
+        Request $request,
+        Video $video,
+        FormInterface $form,
+        VideoUploaderInterface $videoUploader
+    ): bool {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $video->getUploadedVideo();
+            $uploadedVideo = $videoUploader->upload($file);
+            $fileName = $uploadedVideo->getFileName();
+            $fileOriginalName = $uploadedVideo->getOriginalFileName();
+
+            $video->setPath(Video::UPLOAD_FOLDER . '/' . $fileName);
+            $video->setTitle($fileOriginalName);
+
+            $this->videoRepository->add($video, true);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function removeLocally(Video $video, VideoUploaderInterface $videoUploader): bool
+    {
+        try {
+            $videoPath = $video->getPath();
+
+            if (!strpos($videoPath, 'uploads/videos')) {
+                throw new \Exception('This is not local video...');
+            }
+
+            $this->videoRepository->remove($video, true);
+
+            if (!$videoUploader->delete($videoPath)) {
+                throw new \Exception('Video cannot be removed from file system.');
+            }
+
+            return true;
+        } catch (\Exception $ex) {
+            // TODO: Log
+            return false;
+        }
     }
 
     /**

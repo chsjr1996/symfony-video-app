@@ -45,3 +45,7 @@ services:
     App\Service\Implementations\LocalVideoUploader:
         arguments:
             $targetDirectory: '%videos_directory%'
+
+    App\EventListener\NewVideoListener:
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

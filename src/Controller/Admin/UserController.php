@@ -10,15 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin')]
 class UserController extends AbstractController
 {
-    public function __construct(
-        private UserService $userService,
-        private TranslatorInterface $translator
-    ) {
+    public function __construct(private UserService $userService)
+    {
     }
 
     #[Route('/su/users', name: 'admin_users_list')]
@@ -48,7 +45,7 @@ class UserController extends AbstractController
         if ($request->isMethod('POST')) {;
             $success = $this->userService->save($request, $user, $form, $this->container, true);
             $type = $success ? 'success' : 'danger';
-            $message = $success ? $this->translator->trans('admin.profile.saved') : $this->translator->trans('An error occurred on save your data!');
+            $message = $success ? 'admin.profile.saved' : 'admin.profile.not_saved';
             $isInvalid = $success ? '' : 'is-invalid';
             $this->addFlash($type, $message);
         }

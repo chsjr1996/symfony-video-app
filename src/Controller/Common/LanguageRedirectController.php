@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class LanguageRedirectController extends AbstractController
 {
+    /**
+     * @see App\EventSubscriber\LocaleSubscriber
+     */
     public function redirectToLocale(): Response
     {
         return $this->redirectToRoute('front_main_page');

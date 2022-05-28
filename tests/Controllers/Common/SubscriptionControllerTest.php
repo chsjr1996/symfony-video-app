@@ -55,7 +55,7 @@ class SubscriptionControllerTest extends WebTestCase
     public function testNotLoggedInUserSeesVideosForNoMembers($url): void
     {
         $this->client->request('GET', $url);
-        $expectedVimeoUrl = Video::VIDEO_PATH . Video::VIDEO_FOR_NON_MEMBER;
+        $expectedVimeoUrl = Video::VIDEO_VIMEO_PATH . Video::VIDEO_FOR_NON_MEMBER;
         $this->assertStringContainsString(
             $expectedVimeoUrl,
             $this->client->getResponse()->getContent()

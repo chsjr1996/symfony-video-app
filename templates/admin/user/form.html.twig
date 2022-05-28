@@ -1,7 +1,7 @@
 {% extends "admin/base.html.twig" %}
 
 {% block mainadmin %}
-    {{ include('admin/_partials/_errors.html.twig') }}
+    {{ include('_common/_partials/_errors.html.twig') }}
 
     <h2>{{ selfUser ? 'My profile' : 'Profile of: ' ~ userId }}
         <small>

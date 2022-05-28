@@ -11,6 +11,7 @@ Encore
     .addStyleEntry('css/dashboard', ['./assets/css/dashboard.css'])
     .addStyleEntry('css/login', ['./assets/css/login.css'])
     .addStyleEntry('css/likes', ['./assets/css/likes.css'])
+    .addStyleEntry('css/common', ['./assets/css/common.css'])
     // .splitEntryChunks()
     // .enableSingleRuntimeChunk()
     .disableSingleRuntimeChunk()

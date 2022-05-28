@@ -33,8 +33,7 @@ class VideoAuthService
         } catch (\Exception $ex) {
             // TODO: Another 'static' use...
             // static $video = Video::VIDEO_FOR_NON_MEMBER;
-            $video = Video::VIDEO_FOR_NON_MEMBER;
-            return $video;
+            return Video::VIDEO_VIMEO_PATH . Video::VIDEO_FOR_NON_MEMBER;
         }
     }
 }

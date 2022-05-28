@@ -147,4 +147,15 @@ class VideoService
             $this->commentRepository->add($comment, true);
         }
     }
+
+    public function removeComment(Comment $comment): bool
+    {
+        try {
+            $this->commentRepository->remove($comment, true);
+            return true;
+        } catch (\Exception $ex) {
+            // TODO: Log
+            return false;
+        }
+    }
 }

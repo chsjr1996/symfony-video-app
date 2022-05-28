@@ -1,12 +1,16 @@
 {% extends "base.html.twig" %}
 
 {% if video_non_members is not null %}
-    {% set videoid = video.getVideoVimeoPath ~ video_non_members %}
+    {% set videoid = video_non_members %}
 {% else %}
-    {% set videoid = video.vimeoid %}
+    {% set videoid = video.path %}
 {% endif %}
 
 {% block main %}
+    <br>
+
+    {{ include('_common/_partials/_errors.html.twig') }}
+
     <br>
     <h1>{{ video.title }}</h1>
     <div align="center" class="embed-responsive embed-responsive-16by9">
@@ -29,6 +33,13 @@
                                     <b>{{ comment.createdat|ago }}</b>
                                 </small>
                             </small>
+
+                            {% if app.user and app.user.id == comment.owner.id %}
+                                <form action="{{ path('delete_comment', {'comment': comment.id}) }}" method="POST" class="delete-form">
+                                    <input type="hidden" name="_method" value="DELETE"/>
+                                    <button type="submit" onclick="return confirm('Are you sure?');">delete comment</button>
+                                </form>
+                            {% endif %}
                         </h5>
                         {{ comment.content }}
                     </div>

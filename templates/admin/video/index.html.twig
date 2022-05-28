@@ -2,7 +2,7 @@
 
 {% block mainadmin %}
 
-    {{ include('admin/_partials/_errors.html.twig') }}
+    {{ include('_common/_partials/_errors.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
         <h2>Videos</h2>

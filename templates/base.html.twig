@@ -15,10 +15,13 @@
             }
         </style>
 
-        <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}"> {% block customstylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}" />
+        {% block customstylesheets %}{% endblock %}
 
         <title>
-            {% block title %}Symfony 4 course app - video sharing service
+            {% block title %}
+                Symfony 4 course app - video sharing service
             {% endblock %}
         </title>
     </head>

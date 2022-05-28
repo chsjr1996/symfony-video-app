@@ -2,10 +2,12 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Comment;
 use App\Entity\Video;
 use App\Service\Implementations\CategoryTreeFrontPage;
 use App\Service\Implementations\VideoAuthService;
 use App\Service\Implementations\VideoService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,5 +65,17 @@ class VideoController extends AbstractController
         return $this->redirectToRoute('video_details', [
             'id' => $video->getId(),
         ]);
+    }
+
+    #[Route('/delete-comment/{comment}', name: 'delete_comment', methods: ['DELETE', 'GET'])]
+    #[Security('user.getId() == comment.getOwner().getId()')]
+    public function deleteComment(Request $request, Comment $comment): Response
+    {
+        $success = $this->videoService->removeComment($comment);
+        $flashType = $success ? 'success' : 'danger';
+        $flashMessage = $success ? 'Your comment was deleted!' : 'Error on delete your comment, try again later!';
+        $this->addFlash($flashType, $flashMessage);
+
+        return $this->redirect($request->headers->get('referer'));
     }
 }

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(name: 'title_idx', columns: ['title'])]
 class Video
 {
-    public const VIDEO_PATH = 'https://player.vimeo.com/video/';
+    public const VIDEO_VIMEO_PATH = 'https://player.vimeo.com/video/';
     public const VIDEO_FOR_NON_MEMBER = 113716040;
     public const PER_PAGE = 5;
     public const MIN_SEARCH_CHARS = 2;
@@ -77,11 +77,6 @@ class Video
     }
 
     public function getPath(): ?string
-    {
-        return $this->path;
-    }
-
-    public function getVimeoId(): string
     {
         return $this->path;
     }
@@ -205,10 +200,5 @@ class Video
         $this->uploaded_video = $uploaded_video;
 
         return $this;
-    }
-
-    public function getVideoVimeoPath(): string
-    {
-        return self::VIDEO_PATH;
     }
 }

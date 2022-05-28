@@ -2,9 +2,9 @@
     {% for video in videos %}
 
         {% if video_non_members is not null %}
-            {% set videoid = video.getVideoVimeoPath ~ video_non_members %}
+            {% set videoid = video_non_members %}
         {% else %}
-            {% set videoid = video.vimeoid %}
+            {% set videoid = video.path %}
         {% endif %}
 
         <div class="col-md-4">

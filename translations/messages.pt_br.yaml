@@ -1,0 +1,6 @@
+admin:
+    profile:
+        my_profile: Meu perfil
+        profile_of: "Perfil do usuário: "
+        saved: Suas alterações foram salvas!
+        not_saved: Ocorreu um erro ao salvar seus dados!

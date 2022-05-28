@@ -5,16 +5,20 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\Implementations\UserService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin')]
 class UserController extends AbstractController
 {
-    public function __construct(private UserService $userService)
-    {
+    public function __construct(
+        private UserService $userService,
+        private TranslatorInterface $translator
+    ) {
     }
 
     #[Route('/su/users', name: 'admin_users_list')]
@@ -29,8 +33,8 @@ class UserController extends AbstractController
      * @todo refactor, maybe can be more clean?
      */
     #[Route('/users/{id}', name: 'admin_users_show', defaults: ['id' => null], methods: ['GET', 'POST'])]
-    #[Route('/my_profile', name: 'admin_users_my_profile')]
-    public function show(Request $request, $id = null): Response
+    #[Route(['en' => '/my_profile', 'pt_br' => '/meu-perfil'], name: 'admin_users_my_profile', methods: ['GET', 'POST'])]
+    public function editProfile(Request $request, $id = null): Response
     {
         $isInvalid = '';
         $selfUser = $id == $this->getUser()->getId() || is_null($id);
@@ -44,7 +48,7 @@ class UserController extends AbstractController
         if ($request->isMethod('POST')) {;
             $success = $this->userService->save($request, $user, $form, $this->container, true);
             $type = $success ? 'success' : 'danger';
-            $message = $success ? 'Your changes were saved!' : 'An error occurred on save your data!';
+            $message = $success ? $this->translator->trans('admin.profile.saved') : $this->translator->trans('An error occurred on save your data!');
             $isInvalid = $success ? '' : 'is-invalid';
             $this->addFlash($type, $message);
         }

@@ -2,6 +2,10 @@ controllers:
     resource: ../src/Controller/
     type: annotation
 
+    prefix:
+        en: ''
+        pt_br: '/pt_br'
+
 kernel:
     resource: ../src/Kernel.php
     type: annotation

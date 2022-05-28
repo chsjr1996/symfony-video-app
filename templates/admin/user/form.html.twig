@@ -3,14 +3,16 @@
 {% block mainadmin %}
     {{ include('_common/_partials/_errors.html.twig') }}
 
-    <h2>{{ selfUser ? 'My profile' : 'Profile of: ' ~ userId }}
-        <small>
-            <form action="{{ path('admin_users_delete', {'user': app.user.id}) }}" method="POST" class="delete-form">
-                <input type="hidden" name="_method" value="DELETE"/>
-                <input type="submit" class="" onclick="return confirm('Are you sure?');" value="delete account"/>
-            </form>
-        </small>
-    </h2>
+    <h2>{{ selfUser ? 'admin.profile.my_profile'|trans : 'admin.profile.profile_of'|trans ~ userId }}</h2>
+
+    <small>
+        <form action="{{ path('admin_users_delete', {'user': app.user.id}) }}" method="POST" class="delete-form">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <input type="submit" class="" onclick="return confirm('Are you sure?');" value="delete account"/>
+        </form>
+    </small>
+    <br />
+    <br />
 
     {# TODO: Transfer conditions to Controller/Service side... #}
     {% if not is_granted('ROLE_ADMIN') and subscription and subscription.getPlan in subscription.getAllPlansNames and subscription.paymentStatus != 'canceled' %}

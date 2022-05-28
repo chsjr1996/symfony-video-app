@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Service\Implementations\UserService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class UserController extends AbstractController
      * @todo refactor, maybe can be more clean?
      */
     #[Route('/users/{id}', name: 'admin_users_show', defaults: ['id' => null], methods: ['GET', 'POST'])]
-    #[Route(['en' => '/my_profile', 'pt_br' => '/meu-perfil'], name: 'admin_users_my_profile', methods: ['GET', 'POST'])]
+    #[Route(['en' => '/my_profile', 'pt_br' => '/meu_perfil'], name: 'admin_users_my_profile', methods: ['GET', 'POST'])]
     public function editProfile(Request $request, $id = null): Response
     {
         $isInvalid = '';
@@ -45,7 +44,7 @@ class UserController extends AbstractController
         if ($request->isMethod('POST')) {;
             $success = $this->userService->save($request, $user, $form, $this->container, true);
             $type = $success ? 'success' : 'danger';
-            $message = $success ? 'admin.profile.saved' : 'admin.profile.not_saved';
+            $message = $success ? 'messages.admin.profile.saved' : 'messages.admin.profile.not_saved';
             $isInvalid = $success ? '' : 'is-invalid';
             $this->addFlash($type, $message);
         }

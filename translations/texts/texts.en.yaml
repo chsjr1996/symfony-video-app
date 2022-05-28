@@ -1,0 +1,126 @@
+texts:
+    admin:
+        title: admin panel
+        header:
+            go_to_public_site: Go to public site
+            logged_as: Logged as
+            logout: Logout
+        sidebar:
+            dashboard: Dashboard
+            categories: Categories
+            videos: Videos
+            upload_video_local: Upload a video (locally)
+            users: Users
+            my_profile: My profile
+        categories:
+            title: Categories list
+            create: Create
+        videos:
+            title_admin: Videos
+            title_non_admin: My liked videos
+            video_name: Video name
+            video_url: Link
+            video_category: Category
+            video_delete: Delete
+            go_to_video: go to video
+            no_category: No category
+            are_you_sure: "Are you sure?"
+        upload_video_local:
+            title: Upload a video (locally)
+            choose_file: Choose file
+            submit: Submit
+        users:
+            title: Users
+            id: ID
+            name: Name
+            last_name: Last name
+            email: Email
+            delete: Delete
+            are_you_sure: "Are you sure?"
+        profile:
+            title_self: My profile
+            title_other: "Profile of user: "
+            delete_account: delete account
+            are_you_sure: "Are you sure?"
+            are_you_sure_subscription: "Are you sure? This can not be undone. Remember also to cancel payment in your PayPal account."
+            my_plan: "My plan - "
+            valid_to: "valid to: "
+            plan_is_not_active: "Plan is not active"
+            pay_for_plan: pay for plan
+            get_paid_plan: get paid plan
+            cancel_plan: cancel plan
+            you_dont_have_plan: You don't have any plan.
+            get_plan: Get plan
+            vimeo_api_key: Vimeo API key
+            name: Name
+            last_name: Last name
+            email_address: Email address
+            password: Password
+            confirm_password: Confirm password
+            save: Save
+
+    front:
+        header:
+            search_placeholder: video title
+            search_video: Search video
+            my_account: My account
+            sign_up: Sign up
+            sign_in: Sign in
+
+        footer:
+            features:
+                title: Features
+                video_player: Video player
+                hosting: Hosting
+                privacy: Privacy
+                analytics: Analytics
+
+            resources:
+                title: Resources
+                help_center: Help center
+                blog: Blog
+                guidelines: Guidelines
+                developers: Developers
+
+            about:
+                title: About
+                team: Team
+                contact: Contact
+                terms: Terms
+
+        home:
+            title: Where the best videos happens
+
+        video_list:
+            category: Category
+            subcategories: Subcategories
+            sort: Sort...
+            highest_rated: Highest rated
+            title_a_z: Title A-Z
+            title_z_a: Title Z-A
+            video_for_members: "Video for <b>MEMBERS</b> only. <a href=\"sign_up_url\">Sign up</a> for one month for free"
+            comments: Comments
+            search_results: Search results
+            no_results: No results were found
+
+        pricing:
+            title: Pricing
+            subtitle: Watch the best videos on the planet. Choose a plan that is right for you. Downgrade or upgrade at any time.
+            sign_up_for_free: Sign up for free
+            get_started: Get started
+            contact_us: Contact us
+            advantages:
+                access_for_one_month: Access for one month
+                unlimited_access: Unlimited access
+                hd_available: HD available
+                ultra_hd_available: Ultra HD available
+                no_ads_on_videos: No ads on videos
+                help_center_access: Help center access
+
+        login:
+            title: Please sign in
+            email_address: Email address
+            password: Password
+            remember_me: Remember me
+            sign_in: Sign in
+            main_page: main page

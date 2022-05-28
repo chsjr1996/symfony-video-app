@@ -1,21 +1,21 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">
-        <a href="{{ path('front_main_page') }}">Awesome Videos</a>
+        <a href="{{ path('front_main_page') }}">{{ gl_app_name }}</a>
     </h5>
 
     <form method="GET" class="form-inline my-0 mr-md-auto" action="{{ path('search_results') }}">
-        <input name="query" class="form-control mr-sm-2" type="search" placeholder="video title" aria-label="Search video" value="{{ query ?? '' }}" />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search video</button>
+        <input name="query" class="form-control mr-sm-2" type="search" placeholder="{{ 'texts.front.header.search_placeholder'|trans({}, 'texts') }}" aria-label="Search video" value="{{ query ?? '' }}" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ 'texts.front.header.search_video'|trans({}, 'texts') }}</button>
     </form>
 
     <nav class="my-2 my-md-0 mr-md-3">
         {{ render(controller("App\\Controller\\Front\\FrontController::mainCategories")) }}
         {% if app.user %}
-            <a href="{{ path('admin_users_my_profile') }}" class="p-2 text-dark">My account</a>
+            <a href="{{ path('admin_users_my_profile') }}" class="p-2 text-dark">{{ 'texts.front.header.my_account'|trans({}, 'texts') }}</a>
         {% endif %}
     </nav>
     {% if not app.user %}
-        <a class="btn btn-outline-primary mr-2" href="{{ path('pricing') }}">Sign up</a>
-        <a class="btn btn-outline-primary" href="{{ path('login') }}">Sign in</a>
+        <a class="btn btn-outline-primary mr-2" href="{{ path('pricing') }}">{{ 'texts.front.header.sign_up'|trans({}, 'texts') }}</a>
+        <a class="btn btn-outline-primary" href="{{ path('login') }}">{{ 'texts.front.header.sign_in'|trans({}, 'texts') }}</a>
     {% endif %}
 </div>

@@ -3,12 +3,12 @@
 {% block mainadmin %}
     {{ include('_common/_partials/_errors.html.twig') }}
 
-    <h2>{{ selfUser ? 'admin.profile.my_profile'|trans : 'admin.profile.profile_of'|trans ~ userId }}</h2>
+    <h2>{{ selfUser ? 'texts.admin.profile.title_self'|trans({}, 'texts') : 'texts.admin.profile.title_other'|trans({}, 'texts') ~ userId }}</h2>
 
     <small>
         <form action="{{ path('admin_users_delete', {'user': app.user.id}) }}" method="POST" class="delete-form">
             <input type="hidden" name="_method" value="DELETE"/>
-            <input type="submit" class="" onclick="return confirm('Are you sure?');" value="delete account"/>
+            <input type="submit" class="" onclick="return confirm('{{ 'texts.admin.profile.are_you_sure'|trans({}, 'texts') }}');" value="{{ 'texts.admin.profile.delete_account'|trans({}, 'texts') }}"/>
         </form>
     </small>
     <br />
@@ -16,70 +16,70 @@
 
     {# TODO: Transfer conditions to Controller/Service side... #}
     {% if not is_granted('ROLE_ADMIN') and subscription and subscription.getPlan in subscription.getAllPlansNames and subscription.paymentStatus != 'canceled' %}
-        <p class="text-left">My plan -
+        <p class="text-left">{{ 'texts.admin.profile.my_plan'|trans({}, 'texts') }}
             {{ subscription.getPlan|upper }}
             .
-            <b>valid to:</b>
+            <b>{{ 'texts.admin.profile.valid_to'|trans({}, 'texts') }}</b>
             {{ subscription.validto|date('Y-m-d') }}
             {% if subscription.validTo == null or subscription.paymentStatus == null %}
-                Plan is not active
-                <a href="{{ path('payment') }}">pay for plan</a>
+                {{ 'texts.admin.profile.plan_is_not_active'|trans({}, 'texts') }}
+                <a href="{{ path('payment') }}">{{ 'texts.admin.profile.pay_for_plan'|trans({}, 'texts') }}</a>
                 |
             {% endif %}
             {% if subscription.getPlan == subscription.getPlanDataNameByIndex(0) %}
-                <a href="{{ path('pricing') }}">get paid plan</a>
+                <a href="{{ path('pricing') }}">{{ 'texts.admin.profile.get_paid_plan'|trans({}, 'texts') }}</a>
                 |
             {% endif %}
-            <a onclick="return confirm('Are you sure? This can not be undone. Remember also to cancel payment in your PayPal account.');" href="{{ path('cancel_plan') }}">cancel plan</a>
+            <a onclick="return confirm('{{ 'texts.admin.profile.are_you_sure_subscription'|trans({}, 'texts') }}');" href="{{ path('cancel_plan') }}">{{ 'texts.admin.profile.cancel_plan'|trans({}, 'texts') }}</a>
         </p>
     {% elseif not is_granted('ROLE_ADMIN') %}
-        <p class="text-left">You don't have any plan.
-            <a href="{{ path('pricing') }}">Get plan</a>
+        <p class="text-left">{{ 'texts.admin.profile.you_dont_have_plan'|trans({}, 'texts') }}
+            <a href="{{ path('pricing') }}">{{ 'texts.admin.profile.get_plan'|trans({}, 'texts') }}</a>
         </p>
     {% endif %}
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {% if is_granted('ROLE_ADMIN') %}
         <div class="form-group">
-            <label for="user_vimeo_api_key">Vimeo API key</label>
+            <label for="user_vimeo_api_key">{{ 'texts.admin.profile.vimeo_api_key'|trans({}, 'texts') }}</label>
             {{ form_widget(form.vimeo_api_key) }}
         </div>
     {% endif %}
     <div class="form-group">
-        <label for="user_name">Name</label>
+        <label for="user_name">{{ 'texts.admin.profile.name'|trans({}, 'texts') }}</label>
         {{ form_widget(form.name, {'attr': {'class': is_invalid}}) }}
         <div class="invalid-feedback">
             {{ form_errors(form.name) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="user_last_name">Last name</label>
+        <label for="user_last_name">{{ 'texts.admin.profile.last_name'|trans({}, 'texts') }}</label>
         {{ form_widget(form.last_name, {'attr': {'class': is_invalid}}) }}
         <div class="invalid-feedback">
             {{ form_errors(form.last_name) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="user_email">Email address</label>
+        <label for="user_email">{{ 'texts.admin.profile.email_address'|trans({}, 'texts') }}</label>
         {{ form_widget(form.email, {'attr': {'class': is_invalid}}) }}
         <div class="invalid-feedback">
             {{ form_errors(form.email) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="user_password_first">Password</label>
+        <label for="user_password_first">{{ 'texts.admin.profile.password'|trans({}, 'texts') }}</label>
         {{ form_widget(form.password.first, {'attr': {'class': is_invalid}}) }}
         <div class="invalid-feedback">
             {{ form_errors(form.password.first) }}
         </div>
     </div>
     <div class="form-group">
-        <label for="user_password_second">Confirm password</label>
+        <label for="user_password_second">{{ 'texts.admin.profile.confirm_password'|trans({}, 'texts') }}</label>
         {{ form_widget(form.password.second, {'attr': {'class': is_invalid}}) }}
         <div class="invalid-feedback">
             {{ form_errors(form.password.second) }}
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">{{ 'texts.admin.profile.save'|trans({}, 'texts') }}</button>
     {{ form_end(form) }}
 {% endblock %}

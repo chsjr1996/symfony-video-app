@@ -1,0 +1,126 @@
+texts:
+    admin:
+        title: paínel admin
+        header:
+            go_to_public_site: Ir para site público
+            logged_as: Logado como
+            logout: Sair
+        sidebar:
+            dashboard: Dashboard
+            categories: Categorias
+            videos: Vídeos
+            upload_video_local: Enviar um vídeo (local)
+            users: Usuários
+            my_profile: Meu perfil
+        categories:
+            title: Lista de categorias
+            create: Criar
+        videos:
+            title_admin: Videos
+            title_non_admin: Vídeos curtidos
+            video_name: Nome do vídeo
+            video_url: Link
+            video_category: Categoria
+            video_delete: Remover
+            go_to_video: Ir para o vídeo
+            no_category: Sem categoria
+            are_you_sure: "Tem certeza?"
+        upload_video_local:
+            title: Enviar um vídeo (local)
+            choose_file: Escolher arquivo
+            submit: Enviar
+        users:
+            title: Usuários
+            id: ID
+            name: Nome
+            last_name: Último nome
+            email: Email
+            delete: Remover
+            are_you_sure: "Tem certeza?"
+        profile:
+            title_self: Meu perfil
+            title_other: "Perfil do usuário: "
+            delete_account: remover conta
+            are_you_sure: "Tem certeza?"
+            are_you_sure_subscription: "Tem certeza? Essa ação não pode ser desfeita. Lembre-se de cancelar o pagamento no PayPal!"
+            my_plan: "Meu plano - "
+            valid_to: "válido até: "
+            plan_is_not_active: "Plano não está ativo"
+            pay_for_plan: pagar pelo plano
+            get_paid_plan: adquira um plano pago
+            cancel_plan: cancelar plano
+            you_dont_have_plan: Você não tem nenhum plano.
+            get_plan: Adquira um plano
+            vimeo_api_key: Chave de API Vimeo
+            name: Nome
+            last_name: Último nome
+            email_address: Endereço de e-mail
+            password: Senha
+            confirm_password: Confirmar senha
+            save: Salvar
+
+    front:
+        header:
+            search_placeholder: título do vídeo
+            search_video: Buscar vídeo
+            my_account: Minha conta
+            sign_up: Cadastrar
+            sign_in: Entrar
+
+        footer:
+            features:
+                title: Recursos
+                video_player: Video player
+                hosting: Hospedagem
+                privacy: Privacidade
+                analytics: Analytics
+
+            resources:
+                title: Recursos
+                help_center: Central de ajuda
+                blog: Blog
+                guidelines: Diretrizes
+                developers: Desenvolvedores
+
+            about:
+                title: Sobre
+                team: Equipe
+                contact: Contato
+                terms: Termos
+
+        home:
+            title: Onde você encontra os melhores vídeos
+
+        video_list:
+            category: Categoria
+            subcategories: Sub-categorias
+            sort: Ordernar...
+            highest_rated: Mais votados
+            title_a_z: Título A-Z
+            title_z_a: Título Z-A
+            video_for_members: "Vídeo para <b>MEMBROS</b> somente. <a href=\"sign_up_url\">Cadastre-se</a> para ter um mês grátis."
+            comments: Comentários
+            search_results: Resultados da busca
+            no_results: Nenhum resultado encontrado
+
+        pricing:
+            title: Preços
+            subtitle: Assista aos melhores vídeos do planeta. Escolha um plano adequado para você. Faça downgrade ou upgrade a qualquer momento.
+            sign_up_for_free: Cadastre-se grátis
+            get_started: Inciar
+            contact_us: Contate-nos
+            advantages:
+                access_for_one_month: Acesso por um mês
+                unlimited_access: Accesso ilimitado
+                hd_available: Vídeos em HD
+                ultra_hd_available: Vídeos em Ultra HD
+                no_ads_on_videos: Sem anúncios nos vídeos
+                help_center_access: Acesso à central de ajuda
+
+        login:
+            title: Por favor, entre
+            email_address: Endereço de e-mail
+            password: Senha
+            remember_me: Lembrar-se
+            sign_in: Entrar
+            main_page: página principal

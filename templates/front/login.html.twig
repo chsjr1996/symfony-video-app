@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block customstylesheets %}
-	<link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+	<link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 {% endblock %}
 
 {% block menu %}{% endblock %}
@@ -9,26 +9,26 @@
 {% block main %}
 	{% if error %}
 		<div class="alert alert-danger">
-			{{error.messageKey|trans(error.messageData, 'security')}}
+			{{ error.messageKey|trans(error.messageData, 'security') }}
 		</div>
 	{% endif %}
 
-	<form method="POST" action="{{path('login')}}" class="form-signin">
-		<input type="hidden" name="_csrf_token" value="{{csrf_token('authenticate')}}"/>
-		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-		<label for="inputEmail" class="sr-only">Email address</label>
-		<input type="email" name="_email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" name="_password" id="inputPassword" class="form-control" placeholder="Password" required>
+	<form method="POST" action="{{ path('login') }}" class="form-signin">
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+		<h1 class="h3 mb-3 font-weight-normal">{{ 'texts.front.login.title'|trans({}, 'texts') }}</h1>
+		<label for="inputEmail" class="sr-only">{{ 'texts.front.login.email_address'|trans({}, 'texts') }}</label>
+		<input type="email" name="_email" id="inputEmail" class="form-control" placeholder="{{ 'texts.front.login.email_address'|trans({}, 'texts') }}" required autofocus>
+		<label for="inputPassword" class="sr-only">{{ 'texts.front.login.password'|trans({}, 'texts') }}</label>
+		<input type="password" name="_password" id="inputPassword" class="form-control" placeholder="{{ 'texts.front.login.password'|trans({}, 'texts') }}" required>
 		<div class="checkbox mb-3">
 			<label>
 				<input type="checkbox" name="_remember_me">
-				Remember me
+				{{ 'texts.front.login.remember_me'|trans({}, 'texts') }}
 			</label>
 		</div>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-		<p class="mt-5 mb-3 text-muted">&copy; 2017-2018
-			<a href="{{ path('front_main_page') }}">main page</a>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'texts.front.login.sign_in'|trans({}, 'texts') }}</button>
+		<p class="mt-5 mb-3 text-muted">&copy; 2022-2022
+			<a href="{{ path('front_main_page') }}">{{ 'texts.front.login.main_page'|trans({}, 'texts') }}</a>
 		</p>
 	</form>
 {% endblock %}

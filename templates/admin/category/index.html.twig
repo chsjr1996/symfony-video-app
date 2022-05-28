@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block mainadmin %}
-    <h2>Categories list</h2>
+    <h2>{{ 'texts.admin.categories.title'|trans({}, 'texts') }}</h2>
 
     <div>
-        <a href="{{ path('admin_categories_create') }}">Create</a>
+        <a href="{{ path('admin_categories_create') }}">{{ 'texts.admin.categories.create'|trans({}, 'texts') }}</a>
     </div>
 
     {{categories|raw}}

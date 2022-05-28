@@ -3,8 +3,8 @@
 {% block main %}
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Pricing</h1>
-        <p class="lead">Watch the best videos on the planet. Choose a plan that is right for you. Downgrade or upgrade at any time.</p>
+        <h1 class="display-4">{{ 'texts.front.pricing.title'|trans({}, 'texts') }}</h1>
+        <p class="lead">{{ 'texts.front.pricing.subtitle'|trans({}, 'texts') }}</p>
     </div>
 
     <div class="container">
@@ -20,10 +20,10 @@
                         </h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             {% for description in plan.descriptions %}
-                                <li>{{ description }}</li>
+                                <li>{{ description|trans({}, 'texts') }}</li>
                             {% endfor %}
                         </ul>
-                        <a role="button" href="{{ path('front_register_page', {'plan': plan.name}) }}" class="btn btn-lg btn-block {{ plan.buttons.class }}">{{ plan.buttons.text }}</a>
+                        <a role="button" href="{{ path('front_register_page', {'plan': plan.name}) }}" class="btn btn-lg btn-block {{ plan.buttons.class }}">{{ plan.buttons.text|trans({}, 'texts') }}</a>
                     </div>
                 </div>
             {% endfor %}

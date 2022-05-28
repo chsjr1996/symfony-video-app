@@ -5,9 +5,9 @@
     {{ include('_common/_partials/_errors.html.twig') }}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <h2>Videos</h2>
+        <h2>{{ 'texts.admin.videos.title_admin'|trans({}, 'texts') }}</h2>
     {% else %}
-        <h2>My liked videos</h2>
+        <h2>{{ 'texts.admin.videos.title_non_admin'|trans({}, 'texts') }}</h2>
     {% endif %}
 
     <div class="table-responsive">
@@ -15,11 +15,11 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Video name</th>
-                    <th>Link</th>
+                    <th>{{ 'texts.admin.videos.video_name'|trans({}, 'texts') }}</th>
+                    <th>{{ 'texts.admin.videos.video_url'|trans({}, 'texts') }}</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th>Category</th>
-                        <th>Delete</th>
+                        <th>{{ 'texts.admin.videos.video_category'|trans({}, 'texts') }}</th>
+                        <th>{{ 'texts.admin.videos.video_delete'|trans({}, 'texts') }}</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -29,7 +29,7 @@
                         <td>{{ loop.index }}</td>
                         <td>{{ video.title }}</td>
                         <td>
-                            <a target="_blank" href="{{ path('video_details', {'id': video.id}) }}">go to video</a>
+                            <a target="_blank" href="{{ path('video_details', {'id': video.id}) }}">{{ 'texts.admin.videos.go_to_video'|trans({}, 'texts') }}</a>
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
@@ -44,7 +44,7 @@
                                             {% endif %}
                                         {% endfor %}
                                         {% if video.category is null %}
-                                            <option selected value="0">No category</option>
+                                            <option selected value="0">{{ 'texts.admin.videos.no_category'|trans({}, 'texts') }}</option>
                                         {% endif %}
                                     </select>
                                 </form>
@@ -52,7 +52,7 @@
                             <td>
                                 <form action="{{ path('delete_locally', {'video': video.id}) }}" method="POST" class="delete-form">
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button type="submit" onclick="return confirm('Are you sure?');">
+                                    <button type="submit" onclick="return confirm('{{ 'texts.admin.videos.are_you_sure'|trans({}, 'texts') }}');">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>

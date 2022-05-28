@@ -5,22 +5,19 @@
 {% endblock %}
 
 {% block title %}
-    Awesome videos - admin panel
+    {{ gl_app_name }} - {{ 'texts.admin.title'|trans({}, 'texts') }}
 {% endblock %}
 
 {% block menu %}{% endblock %}
 
 {% block main %}
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Awesome Videos</h5>
-        <a class="nav-link active" href="{{ path('front_main_page') }}">
-            Go to public site</a>
+        <h5 class="my-0 mr-md-auto font-weight-normal">{{ gl_app_name }}</h5>
+        <a class="nav-link active" href="{{ path('front_main_page') }}">{{ 'texts.admin.header.go_to_public_site'|trans({}, 'texts') }}</a>
         <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark">Logged as
-                {{ app.user.name }}
-                {{ app.user.lastname }}</a>
+            <a class="p-2 text-dark">{{ 'texts.admin.header.logged_as'|trans({}, 'texts') }} {{ app.user.name }} {{ app.user.lastname }}</a>
         </nav>
-        <a class="btn btn-outline-primary" href="{{ path('logout') }}">Logout</a>
+        <a class="btn btn-outline-primary" href="{{ path('logout') }}">{{ 'texts.admin.header.logout'|trans({}, 'texts') }}</a>
     </div>
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -30,40 +27,40 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_dashboard_main') }}">
                                 <span data-feather="file"></span>
-                                Dashboard
+                                {{ 'texts.admin.sidebar.dashboard'|trans({}, 'texts') }}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_categories_list') }}">
                                 <span data-feather="file"></span>
-                                Categories
+                                {{ 'texts.admin.sidebar.categories'|trans({}, 'texts') }}
                             </a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_videos_list') }}">
                             <span data-feather="shopping-cart"></span>
-                            Videos
+                            {{ 'texts.admin.sidebar.videos'|trans({}, 'texts') }}
                         </a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_videos_upload_locally') }}">
                                 <span data-feather="shopping-cart"></span>
-                                Upload a video (locally)
+                                {{ 'texts.admin.sidebar.upload_video_local'|trans({}, 'texts') }}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('admin_users_list') }}">
                                 <span data-feather="users"></span>
-                                Users
+                                {{ 'texts.admin.sidebar.users'|trans({}, 'texts') }}
                             </a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_users_my_profile') }}">
                             <span data-feather="file"></span>
-                            My profile
+                            {{ 'texts.admin.sidebar.my_profile'|trans({}, 'texts') }}
                         </a>
                     </li>
                 </ul>
@@ -74,7 +71,7 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">
-                        <a href="{{ path('admin_dashboard_main') }}">Dashboard</a>
+                        <a href="{{ path('admin_dashboard_main') }}">{{ 'texts.admin.sidebar.dashboard'|trans({}, 'texts') }}</a>
                     </h1>
                 </div>
             {% endif %}

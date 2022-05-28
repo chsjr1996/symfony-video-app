@@ -16,7 +16,7 @@
                     <h3>{{ video.getTitle() }}</h3>
 
                     {% if not app.user or video_non_members is not null %}
-                        <p class="card-text text-danger">Video for <b>MEMBERS</b> only. <a href="pricing.php">Sign up</a> for one month for free</p>
+                        <p class="card-text text-danger">{{ 'texts.front.video_list.video_for_members'|trans({'sign_up_url': path('pricing')}, 'texts')|raw }}</p>
                     {% endif %}
 
                     <div class="d-flex justify-content-between align-items-center">
@@ -34,7 +34,7 @@
                                 {{ include('front/_partials/_likes.html.twig', {'video': video}) }}
                             {% endif %}
 
-                            <a href="{{ path('video_details', {'id': video.id}) }}#video_comments" id="video_{{ video.id }}_CommentsQty" class="ml-1">Comments ({{ video.comments.count }})</a>
+                            <a href="{{ path('video_details', {'id': video.id}) }}#video_comments" id="video_{{ video.id }}_CommentsQty" class="ml-1">{{ 'texts.front.video_list.comments'|trans({}, 'texts') }} ({{ video.comments.count }})</a>
                         </div>
                         <small class="text-muted">{{ video.getDuration() }}</small>
                     </div>

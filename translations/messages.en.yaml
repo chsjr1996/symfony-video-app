@@ -1,6 +1,0 @@
-admin:
-    profile:
-        my_profile: My profile
-        profile_of: "Profile of user: "
-        saved: Your changes were saved!
-        not_saved: An error occurred on save your data!

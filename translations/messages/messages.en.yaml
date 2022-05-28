@@ -1,0 +1,5 @@
+messages:
+    admin:
+        profile:
+            saved: Your changes were saved!
+            not_saved: An error occurred on save your data!

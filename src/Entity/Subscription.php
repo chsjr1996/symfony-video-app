@@ -12,14 +12,27 @@ class Subscription
     private const PLAN_NAMES = ['free', 'pro', 'enterprise'];
     private const PLAN_PRICES = ['free' => 0, 'pro' => 15, 'enterprise' => 29];
     private const PLAN_DESCRIPTIONS = [
-        'free' => ['Access for one month', 'Help center access'],
-        'pro' => ['Unlimited access', 'HD available', 'No ads on videos', 'Help center access'],
-        'enterprise' => ['Unlimited access', 'Ultra HD available', 'No ads on videos', 'Help center access', 'Unlimited live events'],
+        'free' => [
+            'texts.front.pricing.advantages.access_for_one_month',
+            'texts.front.pricing.advantages.help_center_access',
+        ],
+        'pro' => [
+            'texts.front.pricing.advantages.unlimited_access',
+            'texts.front.pricing.advantages.hd_available',
+            'texts.front.pricing.advantages.no_ads_on_videos',
+            'texts.front.pricing.advantages.help_center_access',
+        ],
+        'enterprise' => [
+            'texts.front.pricing.advantages.unlimited_access',
+            'texts.front.pricing.advantages.ultra_hd_available',
+            'texts.front.pricing.advantages.no_ads_on_videos',
+            'texts.front.pricing.advantages.help_center_access',
+        ],
     ];
     private const PLAN_BUTTONS = [
-        'free' => ['text' => 'Sign up for free', 'class' => 'btn-outline-primary'],
-        'pro' => ['text' => 'Get started', 'class' => 'btn-primary'],
-        'enterprise' => ['text' => 'Contact us', 'class' => 'btn-primary'],
+        'free' => ['text' => 'texts.front.pricing.sign_up_for_free', 'class' => 'btn-outline-primary'],
+        'pro' => ['text' => 'texts.front.pricing.get_started', 'class' => 'btn-primary'],
+        'enterprise' => ['text' => 'texts.front.pricing.contact_us', 'class' => 'btn-primary'],
     ];
     public const PLAN_DEFAULT_DURATION = '+1 month';
 

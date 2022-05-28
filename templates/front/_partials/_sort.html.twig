@@ -1,11 +1,11 @@
 <form id="form-sorting" action="" method="GET">
-	<select name="sortby" class="custom-select mr-sm-2" id="inlineFormCustomSelect" onchange='this.form.submit();'>
-		<option selected>Sort...</option>
-		<option value="rating">Highest rated</option>
-		<option value="ASC">Title A-Z</option>
-		<option value="DESC">Title Z-A</option>
-	</select>
-	{% if query is defined %}
-		<input type="hidden" name="query" value="{{query}}"/>
-	{% endif %}
+    <select name="sortby" class="custom-select mr-sm-2" id="inlineFormCustomSelect" onchange='this.form.submit();'>
+        <option selected>{{ 'texts.front.video_list.sort'|trans({}, 'texts') }}</option>
+        <option value="rating">{{ 'texts.front.video_list.highest_rated'|trans({}, 'texts') }}</option>
+        <option value="ASC">{{ 'texts.front.video_list.title_a_z'|trans({}, 'texts') }}</option>
+        <option value="DESC">{{ 'texts.front.video_list.title_z_a'|trans({}, 'texts') }}</option>
+    </select>
+    {% if query is defined %}
+        <input type="hidden" name="query" value="{{query}}"/>
+    {% endif %}
 </form>

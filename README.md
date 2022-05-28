@@ -36,4 +36,5 @@ On this course the Symfony 4 was used, but here I'm using the Symfony 6 (and PHP
 - [ ] Explore more about PHP8 Attributes on Symfony, like "Security", "isGranted" and others (expression language)
 - [ ] Improve the speed, try to add Cache Layer on DB requests
 - [ ] Add Queue feature to process some resources on background
+- [ ] Make this app i18n compliance
 - [ ] ...

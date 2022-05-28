@@ -8,6 +8,9 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
+/**
+ * @todo Need to be asyn (queue jobs...)
+ */
 class NewVideoListener
 {
     public function __construct(private MailerInterface $mailer)

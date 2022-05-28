@@ -25,7 +25,8 @@ class VideoController extends AbstractController
     #[Route('/su/videos/upload', name: 'admin_videos_upload')]
     public function upload(Request $request): Response
     {
-        return $this->render('admin/video/form.html.twig');
+        // TODO: Vimeo API not implemented yet...
+        return $this->redirectToRoute('admin_videos_upload_locally');
     }
 
     #[Route('/su/videos/upload-locally', name: 'admin_videos_upload_locally')]

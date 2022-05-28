@@ -61,7 +61,7 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[Route('/update-video-category/{video}', name: 'update_video_category')]
+    #[Route('/su/video/update-category/{video}', name: 'update_video_category')]
     public function updateVideoCategory(Request $request, Video $video): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -78,7 +78,7 @@ class VideoController extends AbstractController
         return $this->redirectToRoute('admin_videos_list');
     }
 
-    #[Route('/{video}', name: 'delete_locally', methods: ['DELETE'])]
+    #[Route('/su/video/{video}', name: 'delete_locally', methods: ['DELETE'])]
     public function deleteLocally(Video $video, VideoUploaderInterface $videoUploader): Response
     {
         $success = $this->videoService->removeLocally($video, $videoUploader);

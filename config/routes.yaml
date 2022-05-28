@@ -1,10 +1,16 @@
+redirect:
+    path: /
+    controller: App\Controller\Common\LanguageRedirectController::redirectToLocale
+
 controllers:
     resource: ../src/Controller/
     type: annotation
 
-    prefix:
-        en: ''
-        pt_br: '/pt_br'
+    prefix: /{_locale}/
+    requirements:
+        _locale: '%available.locales%'
+    defaults:
+        _locale: '%locale%'
 
 kernel:
     resource: ../src/Kernel.php

@@ -27,7 +27,7 @@ class CategoriesControllerTest extends WebTestCase
 
     public function testTextOnPage(): void
     {
-        $crawler = $this->client->request('GET', '/admin/su/categories/');
+        $crawler = $this->client->request('GET', '/en/admin/su/categories/');
 
         $this->assertSame('Categories list', $crawler->filter('h2')->text());
         $this->assertStringContainsString('Electronics', $this->client->getResponse()->getContent());
@@ -35,7 +35,7 @@ class CategoriesControllerTest extends WebTestCase
 
     public function testNewCategory(): void
     {
-        $this->client->request('GET', '/admin/su/categories/create');
+        $this->client->request('GET', '/en/admin/su/categories/create');
         $this->client->submitForm('Save', [
             'category[parent]' => 1,
             'category[name]' => 'Other Electronics',
@@ -51,7 +51,7 @@ class CategoriesControllerTest extends WebTestCase
 
     public function testEditCategory(): void
     {
-        $this->client->request('GET', '/admin/su/categories/edit/1');
+        $this->client->request('GET', '/en/admin/su/categories/edit/1');
         $this->client->submitForm('Save', [
             'category[parent]' => 0,
             'category[name]' => 'Electronics 2',
@@ -66,7 +66,7 @@ class CategoriesControllerTest extends WebTestCase
 
     public function testDeleteCategory(): void
     {
-        $this->client->request('DELETE', '/admin/su/categories/1');
+        $this->client->request('DELETE', '/en/admin/su/categories/1');
         $category = $this->entityManager
             ->getRepository(Category::class)
             ->find(1);

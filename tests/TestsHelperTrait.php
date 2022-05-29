@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Repository\UserRepository;
+use App\Service\Interfaces\CacheInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,6 +27,15 @@ trait TestsHelperTrait
         $userRepository =  $this->container->get(UserRepository::class);
         $userId = $isAdmin ? 1 : 3;
         $this->client->loginUser($userRepository->find($userId));
+    }
+
+    public function clearCache(): void
+    {
+        $this->validateAttribute('container', ContainerInterface::class);
+
+        /** @var CacheInterface */
+        $cache = $this->container->get(CacheInterface::class);
+        $cache->clear();
     }
 
     private function validateAttribute(string $attributeName, string $instanceOfClassName)

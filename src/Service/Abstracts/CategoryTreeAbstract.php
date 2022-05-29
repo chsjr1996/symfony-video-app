@@ -22,7 +22,8 @@ abstract class CategoryTreeAbstract
         public array $categoryListArray = [],
         public string $mainParentId = '',
         public string $mainParentName = '',
-        public string $currentCategoryName = ''
+        public string $currentCategoryName = '',
+        public array $currentCategoryTreeIds = []
     ) {
         $this->categoriesTree = $this->getCategories();
     }

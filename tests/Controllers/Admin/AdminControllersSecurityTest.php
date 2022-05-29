@@ -16,17 +16,18 @@ class AdminControllersSecurityTest extends WebTestCase
      */
     public function testAccessDeniedForRegularUsers(string $httpMethod, string $url): void
     {
+        $localePrefix = '/en';
         $this->expectException(AccessDeniedException::class);
         $this->loginAsUser(false);
         $this->client->catchExceptions(false);
-        $this->client->request($httpMethod, $url);
+        $this->client->request($httpMethod, $localePrefix . $url);
         $this->assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
     }
 
     public function testAdminSu()
     {
         $this->loginAsUser();
-        $crawler = $this->client->request('GET', '/admin/su/categories/');
+        $crawler = $this->client->request('GET', '/en/admin/su/categories/');
         $this->assertSame('Categories list', $crawler->filter('h2')->text());
     }
 

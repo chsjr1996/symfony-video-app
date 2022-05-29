@@ -125,14 +125,10 @@ class VideoService
     }
 
     public function findByChildIds(
-        CategoryTreeFrontPage $categories,
-        int $id,
+        array $categoryIds,
         int $page,
         string $sortBy
     ) {
-        $categories->getCategoryListAndParent($id);
-        $categoryIds = $categories->getChildIds($id);
-        array_push($categoryIds, (int) $id);
 
         return $this->videoRepository->findByChildIds($categoryIds, $page, $sortBy);
     }

@@ -26,7 +26,7 @@ class UserControllerTest extends WebTestCase
     public function testUserDeleteAccount(): void
     {
         $this->loginAsUser(false);
-        $this->client->request('GET', '/admin/my_profile');
+        $this->client->request('GET', '/en/admin/my_profile');
         $this->client->submitForm('delete account');
 
         $user = $this->entityManager->getRepository(User::class)->find(3);
@@ -36,7 +36,7 @@ class UserControllerTest extends WebTestCase
     public function testUserChangeName(): void
     {
         $this->loginAsUser(false);
-        $this->client->request('GET', '/admin/my_profile');
+        $this->client->request('GET', '/en/admin/my_profile');
         $this->client->submitForm('Save', [
             'user[name]' => 'name',
             'user[last_name]' => 'last_name',
@@ -53,7 +53,7 @@ class UserControllerTest extends WebTestCase
     {
         $userIdToDelete = 4;
         $this->loginAsUser();
-        $this->client->request('DELETE', '/admin/users/' . $userIdToDelete);
+        $this->client->request('DELETE', '/en/admin/users/' . $userIdToDelete);
 
         $user = $this->entityManager->getRepository(User::class)->find($userIdToDelete);
         $this->assertNull($user);

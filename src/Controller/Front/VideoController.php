@@ -4,9 +4,11 @@ namespace App\Controller\Front;
 
 use App\Entity\Comment;
 use App\Entity\Video;
+use App\Service\Implementations\CategoryService;
 use App\Service\Implementations\CategoryTreeFrontPage;
 use App\Service\Implementations\VideoAuthService;
 use App\Service\Implementations\VideoService;
+use App\Service\Interfaces\CacheInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +20,8 @@ class VideoController extends AbstractController
     public function __construct(
         private VideoService $videoService,
         private VideoAuthService $videoAuthService,
+        private CategoryService $categoryService,
+        private CacheInterface $cache
     ) {
     }
 
@@ -34,15 +38,28 @@ class VideoController extends AbstractController
     }
 
     #[Route('/video-list/category/{categoryname},{id}/{page}', name: 'video_list', defaults: ['page' => '1'])]
-    public function videoList(Request $request, $id, $page, CategoryTreeFrontPage $categories): Response
+    public function videoList(Request $request, $id, $page): Response
     {
-        $videos = $this->videoService->findByChildIds($categories, $id, $page, $request->get('sortby', ''));
+        $sortBy = $request->get('sortby', '');
+        $cachedView = $this->cache->getItem('video_list' . $id . $page . $sortBy);
+        $cachedView->expiresAfter(60);
 
-        return $this->render('front/videolist.html.twig', [
-            'subcategories' => $categories,
-            'videos' => $videos,
-            'video_non_members' => $this->videoAuthService->checkSubscription(),
-        ]);
+        if (!$cachedView->isHit()) {
+            $categories = $this->categoryService->getCategoryTreeIds($id);
+            $categoryIds = $categories->currentCategoryTreeIds;
+            $videos = $this->videoService->findByChildIds($categoryIds, $page, $sortBy);
+
+            $renderedView = $this->render('front/videolist.html.twig', [
+                'subcategories' => $categories,
+                'videos' => $videos,
+                'video_non_members' => $this->videoAuthService->checkSubscription(),
+            ]);
+
+            $cachedView->set($renderedView);
+            $this->cache->save($cachedView);
+        }
+
+        return $cachedView->get();
     }
 
     #[Route('/video-details/{id}', name: 'video_details')]

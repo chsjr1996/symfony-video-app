@@ -11,16 +11,17 @@ class FrontControllerSecurityTest extends WebTestCase
      */
     public function testSecureUrls(string $url): void
     {
+        $localePrefix = '/en';
         $this->client->followRedirects(true);
-        $this->client->request('GET', $url);
+        $this->client->request('GET', $localePrefix . $url);
         // TODO: Follow redirects is not work here...
         // $this->assertResponseRedirects('/login');
-        $this->assertEquals('http://localhost/login', $this->client->getRequest()->getUri());
+        $this->assertEquals("http://localhost{$localePrefix}/login", $this->client->getRequest()->getUri());
     }
 
     public function testVideoForMembersOnly()
     {
-        $this->client->request('GET', '/video-list/category/movies,4');
+        $this->client->request('GET', '/en/video-list/category/movies,4');
         $this->assertStringContainsString('Video for <b>MEMBERS</b> only.', $this->client->getResponse()->getContent());
     }
 

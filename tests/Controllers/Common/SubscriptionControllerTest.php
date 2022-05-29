@@ -22,6 +22,7 @@ class SubscriptionControllerTest extends WebTestCase
         parent::setUp();
 
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
+        $this->clearCache();
     }
 
     /**
@@ -42,7 +43,8 @@ class SubscriptionControllerTest extends WebTestCase
      */
     public function testNotLoggedInUsersSeesTextForNoMembers($url): void
     {
-        $this->client->request('GET', $url);
+        $localePrefix = '/en';
+        $this->client->request('GET', $localePrefix . $url);
         $this->assertStringContainsString(
             'Video for <b>MEMBERS</b> only.',
             $this->client->getResponse()->getContent()
@@ -54,7 +56,8 @@ class SubscriptionControllerTest extends WebTestCase
      */
     public function testNotLoggedInUserSeesVideosForNoMembers($url): void
     {
-        $this->client->request('GET', $url);
+        $localePrefix = '/en';
+        $this->client->request('GET', $localePrefix . $url);
         $expectedVimeoUrl = Video::VIDEO_VIMEO_PATH . Video::VIDEO_FOR_NON_MEMBER;
         $this->assertStringContainsString(
             $expectedVimeoUrl,
@@ -75,7 +78,7 @@ class SubscriptionControllerTest extends WebTestCase
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/video-list/category/movies,4');
+        $this->client->request('GET', '/en/video-list/category/movies,4');
 
         $this->assertStringContainsString(
             'Video for <b>MEMBERS</b> only.',
@@ -86,11 +89,11 @@ class SubscriptionControllerTest extends WebTestCase
     public function testDeleteSubscription(): void
     {
         $this->loginAsUser(false);
-        $crawler = $this->client->request('GET', '/admin/my_profile');
+        $crawler = $this->client->request('GET', '/en/admin/my_profile');
         $link = $crawler->filter('a:contains("cancel plan")')->link();
         $this->client->click($link);
 
-        $this->client->request('GET', '/video-list/category/toys,2');
+        $this->client->request('GET', '/en/video-list/category/toys,2');
         $this->assertStringContainsString(
             'Video for <b>MEMBERS</b> only.',
             $this->client->getResponse()->getContent()

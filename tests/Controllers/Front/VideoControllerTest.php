@@ -12,7 +12,7 @@ class VideoControllerTest extends WebTestCase
     public function testNoResults(): void
     {
         $this->client->followRedirects();
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/en');
         $crawler = $this->client->submitForm('Search video', [
             'query' => 'aaa',
         ], 'GET');
@@ -23,7 +23,7 @@ class VideoControllerTest extends WebTestCase
     public function testResultsFound(): void
     {
         $this->client->followRedirects();
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/en');
         $crawler = $this->client->submitForm('Search video', [
             'query' => 'movies',
         ], 'GET');
@@ -34,7 +34,7 @@ class VideoControllerTest extends WebTestCase
     public function testSorting(): void
     {
         $this->client->followRedirects();
-        $this->client->request('GET', '/');
+        $this->client->request('GET', '/en');
         $crawler = $this->client->submitForm('Search video', [
             'query' => 'movies',
         ], 'GET');
@@ -50,7 +50,7 @@ class VideoControllerTest extends WebTestCase
     public function testNotLoggedInUser(): void
     {
         $this->client->followRedirects();
-        $this->client->request('GET', '/video-details/16');
+        $this->client->request('GET', '/en/video-details/16');
         $this->client->submitForm('Add', [
             'comment' => 'Hello!',
         ]);
@@ -65,17 +65,20 @@ class VideoControllerTest extends WebTestCase
         $this->loginAsUser(false);
         $this->client->followRedirects();
 
-        $crawler = $this->client->request('GET', '/video-list/category/toys,2');
+        $this->clearCache();
+        $crawler = $this->client->request('GET', '/en/video-list/category/toys,2');
         $commentsQty = $crawler->filter("a#video_{$videoId}_CommentsQty")->text();
         $this->assertSame('Comments (0)', $commentsQty);
 
-        $this->client->request('GET', '/video-details/' . $videoId);
+        $this->client->request('GET', '/en/video-details/' . $videoId);
         $this->client->submitForm('Add', [
             'comment' => $newComment,
         ]);
+        $this->clearCache();
         $this->assertStringContainsString($newComment, $this->client->getResponse()->getContent());
 
-        $crawler = $this->client->request('GET', '/video-list/category/toys,2');
+        $crawler = $this->client->request('GET', '/en/video-list/category/toys,2');
+        $this->clearCache();
         $commentsQty = $crawler->filter("a#video_{$videoId}_CommentsQty")->text();
         $this->assertSame('Comments (1)', $commentsQty);
     }

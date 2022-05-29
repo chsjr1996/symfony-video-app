@@ -5,18 +5,18 @@
         {{ include('front/_partials/_cart.html.twig') }}
 
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Register first (free)</h4>
+            <h4 class="mb-3">{{ 'texts.front.register.title'|trans({}, 'texts') }}</h4>
             {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="user_name">First name</label>
+                    <label for="user_name">{{ 'texts.front.register.first_name'|trans({}, 'texts') }}</label>
                     {{ form_widget(form.name) }}
                     <div class="invalid-feedback">
                         {{ form_errors(form.name) }}
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="user_last_name">Last name</label>
+                    <label for="user_last_name">{{ 'texts.front.register.last_name'|trans({}, 'texts') }}</label>
                     {{ form_widget(form.last_name) }}
                     <div class="invalid-feedback">
                         {{ form_errors(form.last_name) }}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="user_email">Email</label>
+                <label for="user_email">{{ 'texts.front.register.email'|trans({}, 'texts') }}</label>
                 {{ form_widget(form.email) }}
                 <div class="invalid-feedback">
                     {{ form_errors(form.email) }}
@@ -33,7 +33,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="user_password_first">Password</label>
+                <label for="user_password_first">{{ 'texts.front.register.password'|trans({}, 'texts') }}</label>
                 {{ form_widget(form.password.first) }}
                 <div class="invalid-feedback">
                     {{ form_errors(form.password.first) }}
@@ -41,7 +41,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="user_password_second">Confirm Password</label>
+                <label for="user_password_second">{{ 'texts.front.register.confirm_password'|trans({}, 'texts') }}</label>
                 {{ form_widget(form.password.second) }}
                 <div class="invalid-feedback">
                     {{ form_errors(form.password.second) }}
@@ -49,7 +49,7 @@
             </div>
 
             <hr class="mb-4">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">{{'texts.front.register.submit'|trans({}, 'texts') }}</button>
             {{ form_end(form) }}
         </div>
     </div>

@@ -18,10 +18,7 @@
     <br>
     <label for="inlineFormCustomSelect">Parent:</label>
     <select name="category[parent]" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-        {{render(controller(
-            'App\\Controller\\Admin\\CategoryController::renderCategoriesList',
-            {'editedCategory': category ?? 0}
-          ))}}
+        {{ render(controller('App\\Controller\\Admin\\CategoryController::renderCategoriesList', {'editedCategory': category ?? 0})) }}
     </select>
     <div class="invalid-feedback">
         {{ form_errors(form.name) }}

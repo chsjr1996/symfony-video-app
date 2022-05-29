@@ -6,6 +6,6 @@
         <option value="DESC">{{ 'texts.front.video_list.title_z_a'|trans({}, 'texts') }}</option>
     </select>
     {% if query is defined %}
-        <input type="hidden" name="query" value="{{query}}"/>
+        <input type="hidden" name="query" value="{{ query }}"/>
     {% endif %}
 </form>

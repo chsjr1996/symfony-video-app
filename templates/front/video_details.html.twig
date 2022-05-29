@@ -28,16 +28,16 @@
                         <h5 class="mt-0 mb-1">
                             <b>{{ comment.owner.name }}
                                 {{ comment.owner.lastname }}</b>
-                            <small class="text-muted">added a comment
+                            <small class="text-muted">{{ 'texts.front.video_details.added_comment'|trans({}, 'texts') }}
                                 <small>
-                                    <b>{{ comment.createdat|ago }}</b>
+                                    <b>({{ comment.createdat|ago }})</b>
                                 </small>
                             </small>
 
                             {% if app.user and app.user.id == comment.owner.id %}
                                 <form action="{{ path('delete_comment', {'comment': comment.id}) }}" method="POST" class="delete-form">
                                     <input type="hidden" name="_method" value="DELETE"/>
-                                    <button type="submit" onclick="return confirm('Are you sure?');">delete comment</button>
+                                    <button type="submit" onclick="return confirm(\"{{ 'texts.front.video_details.are_you_sure'|trans({}, 'texts') }}\");">{{ 'texts.front.video_details.delete_comment'|trans({}, 'texts') }}</button>
                                 </form>
                             {% endif %}
                         </h5>
@@ -53,11 +53,12 @@
         <div class="col-md-12">
             <form method="POST" action="{{ path('new_comment', {'video': video.id}) }}">
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Add a comment</label>
+                    <label for="exampleFormControlTextarea1">{{ 'texts.front.video_details.add_comment'|trans({}, 'texts') }}</label>
                     <textarea name="comment" required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">{{ 'texts.front.video_details.submit_comment'|trans({}, 'texts') }}</button>
             </form>
         </div>
     </div>
 {% endblock %}
+

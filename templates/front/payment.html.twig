@@ -5,13 +5,12 @@
         {{ include('front/_partials/_cart.html.twig') }}
 
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Pay with PayPal
-                <small>or get other
-                    <a href="{{path('pricing')}}">plan</a>
-                </small>
+            <h4 class="mb-3">{{ 'texts.front.payment.title'|trans({'paymentGateway': 'PayPal'}, 'texts') }}
+                <small>{{ 'texts.front.payment.or_get_other_plan'|trans({'pricingUrl': path('pricing')}, 'texts')|raw }}</small>
             </h4>
             <hr class="mb-4">
-            <a href="{{ path('payment', {'paypal': true}) }}" class="btn btn-primary btn-lg btn-block" role="button">Continue to checkout</a>
+            <a href="{{ path('payment', {'paypal': true}) }}" class="btn btn-primary btn-lg btn-block" role="button">{{ 'texts.front.payment.continue_to_checkout'|trans({}, 'texts') }}</a>
         </div>
     </div>
 {% endblock %}
+

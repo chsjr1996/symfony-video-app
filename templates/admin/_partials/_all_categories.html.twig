@@ -6,8 +6,8 @@
 
 {% for category in categories %}
   {% if editedCategory.parent.getId() is defined and editedCategory.parent.getId() == category.id %}
-    <option selected value={{category.id}}>{{category.name}}</option>
+    <option selected value={{ category.id }}>{{ category.name }}</option>
   {% else %}
-    <option value={{category.id}}>{{category.name}}</option>
+    <option value={{ category.id }}>{{ category.name }}</option>
   {% endif %}
 {% endfor %}

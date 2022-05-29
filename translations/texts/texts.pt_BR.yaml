@@ -103,6 +103,13 @@ texts:
             search_results: Resultados da busca
             no_results: Nenhum resultado encontrado
 
+        video_details:
+            added_comment: adicionou um comentário
+            delete_comment: remover comentário
+            are_you_sure: Você tem certeza?
+            add_comment: Adicionar um comentário
+            submit_comment: Adicionar
+
         pricing:
             title: Preços
             subtitle: Assista aos melhores vídeos do planeta. Escolha um plano adequado para você. Faça downgrade ou upgrade a qualquer momento.
@@ -116,6 +123,26 @@ texts:
                 ultra_hd_available: Vídeos em Ultra HD
                 no_ads_on_videos: Sem anúncios nos vídeos
                 help_center_access: Acesso à central de ajuda
+
+        register:
+            title: Cadastre-se primeiro (grátis)
+            first_name: Primeiro nome
+            last_name: Último nome
+            email: Email
+            password: Senha
+            confirm_password: Confirme a senha
+            submit: Cadastrar
+
+        payment:
+            title: Pagar com paymentGateway
+            or_get_other_plan: "ou escolha um <a href=\"pricingUrl\">plano</a>"
+            continue_to_checkout: Finalizar compra
+
+        cart:
+            title: Seu carrinho
+            plan: Plano planName
+            promo_code: Cupom de desconto
+            total: Total (USD)
 
         login:
             title: Por favor, entre

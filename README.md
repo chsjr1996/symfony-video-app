@@ -29,7 +29,6 @@ On this course the Symfony 4 was used, but here I'm using the Symfony 6 (and PHP
 - [ ] Replace all DI final class by Interfaces
 - [ ] Make code more clean (DRY)
 - [ ] Add CI on this repository
-- [ ] Verify all twig template files and apply [Coding Standards](https://twig.symfony.com/doc/3.x/coding_standards.html)
 - [ ] Be careful with twig template files names (more accurate)
 - [ ] Verify all tests, add more if needed, try to improve the coverage.
 - [ ] Make sure that all Services can be used by Controllers/Console

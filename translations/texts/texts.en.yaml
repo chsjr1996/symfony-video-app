@@ -103,6 +103,13 @@ texts:
             search_results: Search results
             no_results: No results were found
 
+        video_details:
+            added_comment: added a comment
+            delete_comment: delete comment
+            are_you_sure: Are you sure?
+            add_comment: Add a comment
+            submit_comment: Add
+
         pricing:
             title: Pricing
             subtitle: Watch the best videos on the planet. Choose a plan that is right for you. Downgrade or upgrade at any time.
@@ -116,6 +123,26 @@ texts:
                 ultra_hd_available: Ultra HD available
                 no_ads_on_videos: No ads on videos
                 help_center_access: Help center access
+
+        register:
+            title: Register first (free)
+            first_name: First name
+            last_name: Last name
+            email: Email
+            password: Password
+            confirm_password: Confirm Password
+            submit: Register
+        
+        payment:
+            title: Pay with paymentGateway
+            or_get_other_plan: "or get other <a href=\"pricingUrl\">plan</a>"
+            continue_to_checkout: Continue to checkout
+
+        cart:
+            title: Your cart
+            plan: planName plan
+            promo_code: Promo code
+            total: Total (USD)
 
         login:
             title: Please sign in

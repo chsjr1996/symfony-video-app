@@ -29,7 +29,7 @@ class UserController extends AbstractController
      * @todo refactor, maybe can be more clean?
      */
     #[Route('/users/{id}', name: 'admin_users_show', defaults: ['id' => null], methods: ['GET', 'POST'])]
-    #[Route(['en' => '/my_profile', 'pt_br' => '/meu_perfil'], name: 'admin_users_my_profile', methods: ['GET', 'POST'])]
+    #[Route(['en' => '/my_profile', 'pt_BR' => '/meu_perfil'], name: 'admin_users_my_profile', methods: ['GET', 'POST'])]
     public function editProfile(Request $request, $id = null): Response
     {
         $isInvalid = '';

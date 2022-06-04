@@ -15,25 +15,9 @@ Based on Udemy course [Symfony Web Development Complete Guide: Beginner To Advan
 - `cd symfony-video-app`
 - `composer install`
 - `docker-compose up -d`
+- `./docker-helpers.sh --rebuild-db --re-migrate`
 - Now access the [http://localhost](http://localhost) url on the browser
 
 ## Notes
 
-On this course the Symfony 4 was used, but here I'm using the Symfony 6 (and PHP 8 to use the awesome attributes syntax). I will made some changes too, like improve the code and frontend design.
-
-## Under development
-
-### TODO
-
-- [ ] Try to apply more concepts of S.O.L.I.D.
-- [ ] Replace all DI final class by Interfaces
-- [ ] Make code more clean (DRY)
-- [ ] Add CI on this repository
-- [ ] Be careful with twig template files names (more accurate)
-- [ ] Verify all tests, add more if needed, try to improve the coverage.
-- [ ] Make sure that all Services can be used by Controllers/Console
-- [ ] Explore more about PHP8 Attributes on Symfony, like "Security", "isGranted" and others (expression language)
-- [ ] Improve the speed, try to add Cache Layer on DB requests
-- [ ] Add Queue feature to process some resources on background
-- [ ] Make this app i18n compliance
-- [ ] ...
+On this course the Symfony 4 was used, but here I'm using the Symfony 6 and PHP 8.
